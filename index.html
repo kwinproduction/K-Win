@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-win</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>K-WIN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+
+:root {
 
     --primary-red: #ff1a1a;
     --red-glow: rgba(255, 26, 26, 0.4);
 
-    --primary-white: #f8fafc;
-
     --dark-bg: #000000;
 
-    --card-bg: rgba(20, 20, 20, 0.75);
+    --card-bg: rgba(20,20,20,0.75);
 
     --text-main: #ffffff;
 
     --text-gray: #b0b0b0;
 
-    --border-light: rgba(255,255,255,0.08);
-
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition: all 0.4s ease;
 }
 
-       body {
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
 
     font-family: 'Poppins', sans-serif;
-
-    margin: 0;
-    padding: 0;
 
     background:
     radial-gradient(circle at top right,
@@ -47,515 +52,626 @@
 
     color: var(--text-main);
 
-    scroll-behavior: smooth;
-
-    overflow-x: hidden;
+    overflow-x:hidden;
 }
 
-       /* --- Custom Scrollbar --- */
+/* SCROLLBAR */
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width:10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #000000;
+    background:#000;
 }
 
 ::-webkit-scrollbar-thumb {
 
-    background: linear-gradient(
-        180deg,
-        #ff1a1a,
-        #b30000
-    );
+    background:linear-gradient(
+    180deg,
+    #ff1a1a,
+    #b30000);
 
-    border-radius: 10px;
-
-    box-shadow: 0 0 10px rgba(255,0,0,0.5);
+    border-radius:10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+/* HEADER */
 
-    background: linear-gradient(
-        180deg,
-        #ff3333,
-        #ff0000
-    );
+header {
 
-    box-shadow: 0 0 15px rgba(255,0,0,0.8);
+    min-height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600');
+
+    background-size:cover;
+    background-position:center;
+
+    text-align:center;
+
+    padding:20px;
 }
 
-        /* --- Header / Hero Section --- */
-        header {
-            background: linear-gradient(rgba(11, 17, 32, 0.8), rgba(11, 17, 32, 0.95)), 
-                        url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Parallax Effect */
-            padding: 180px 20px;
-            text-align: center;
-            border-bottom: 2px solid rgba(251, 191, 36, 0.3);
-        }
+/* NAVBAR */
 
-        header h1 { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 5.5rem; 
-            margin: 0; 
-            color: var(--primary-gold); 
-            text-transform: uppercase; 
-            letter-spacing: 10px;
-            font-weight: 800;
-            text-shadow: 0 0 20px var(--gold-glow);
-            animation: fadeInDown 1s ease;
-        }
+nav {
 
-        header p { 
-            font-size: 1.6rem; 
-            color: #fff; 
-            margin-top: 15px; 
-            font-weight: 300;
-            letter-spacing: 1px;
-            animation: fadeInUp 1s ease 0.3s backwards;
-        }
+    display:flex;
+    justify-content:center;
+    gap:20px;
 
-        /* --- Modern Navigation (Glassmorphism) --- */
-        nav {
-            background: rgba(15, 23, 42, 0.8);
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(15px); /* Core of Glassmorphism */
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+    flex-wrap:wrap;
 
-        nav a { 
-            color: white; 
-            text-decoration: none; 
-            padding: 5px 30px; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            font-size: 0.9rem; 
-            transition: var(--transition);
-            letter-spacing: 1px;
-            position: relative;
-        }
+    padding:25px;
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background-color: var(--primary-gold);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
+    position:sticky;
+    top:0;
 
-        nav a:hover { color: var(--primary-gold); }
-        nav a:hover::after { width: 80%; }
+    background:rgba(0,0,0,0.5);
 
-        /* --- Section Titles --- */
-        .section-title { text-align: center; margin-top: 100px; margin-bottom: 60px; }
-        .section-title h2 { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem; 
-            color: var(--text-main); 
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .section-title h2 span { color: var(--primary-gold); }
-        .section-title div { width: 80px; height: 4px; background: var(--primary-gold); margin: 0 auto; border-radius: 2px; box-shadow: 0 0 10px var(--gold-glow); }
+    backdrop-filter:blur(10px);
 
-        /* --- Cards Container --- */
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 40px; 
-        }
+    z-index:1000;
+}
 
-        /* --- Service Cards (Glassmorphism & Glow) --- */
-        .card {
-            background: var(--card-bg);
-            padding: 50px 40px;
-            border-radius: 24px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
-        }
+nav a {
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(255,255,255,0) 70%);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 0;
-        }
+    color:white;
 
-        .card:hover { 
-            transform: translateY(-15px) scale(1.02); 
-            border-color: rgba(251, 191, 36, 0.5); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(251, 191, 36, 0.1); 
-        }
+    text-decoration:none;
 
-        .card:hover::before { opacity: 1; top: -20%; left: -20%; }
+    font-weight:600;
 
-        .card i, .card .icon-wrapper { 
-            font-size: 3.5rem; 
-            color: var(--primary-gold); 
-            margin-bottom: 30px; 
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 15px var(--gold-glow);
-        }
+    transition:0.3s;
+}
 
-        .card h2 { font-size: 2rem; margin-bottom: 20px; position: relative; z-index: 1; font-weight: 600; }
-        .card p { color: var(--text-gray); line-height: 1.9; font-size: 1.05rem; position: relative; z-index: 1; font-weight: 300; }
+nav a:hover {
 
-        /* --- Testimonials Section --- */
-        .testimonials { background: #080d1a; padding: 100px 0; margin-top: 100px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .testi-card { 
-            background: rgba(15, 23, 42, 0.6); 
-            padding: 40px; 
-            border-radius: 20px; 
-            font-style: italic; 
-            position: relative; 
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: var(--transition);
-        }
-        .testi-card:hover { border-color: var(--primary-gold); }
-        .testi-card::before { 
-            content: "\f10d"; 
-            font-family: "Font Awesome 5 Free"; 
-            font-weight: 900; 
-            position: absolute; 
-            top: 20px; 
-            left: 20px; 
-            color: rgba(251, 191, 36, 0.2); 
-            font-size: 3rem; 
-        }
-        .testi-name { display: block; margin-top: 25px; color: var(--primary-gold); font-weight: bold; font-style: normal; font-size: 1.1rem; letter-spacing: 1px;}
+    color:var(--primary-red);
+}
 
-        /* --- Premium Buttons --- */
-        .btn { 
-            display: inline-block; 
-            margin-top: 30px; 
-            padding: 14px 40px; 
-            background: var(--primary-gold); 
-            color: #000; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            transition: var(--transition); 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn:hover { 
-            background: #fff; 
-            transform: translateY(-3px); 
-            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3), 0 0 15px rgba(251, 191, 36, 0.2);
-        }
-
-        /* --- Floating WhatsApp (Glow) --- */
-        .whatsapp-float { 
-            position: fixed; 
-            bottom: 40px; 
-            right: 40px; 
-            background: #25d366; 
-            color: white; 
-            width: 65px; 
-            height: 65px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 34px; 
-            z-index: 1001; 
-            transition: var(--transition); 
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-        }
-        .whatsapp-float:hover { transform: scale(1.1) rotate(15deg); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5); }
-
-        /* --- Footer --- */
-        footer { background: #050810; padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .social-icons { margin-bottom: 30px; }
-        .social-icons a { 
-            color: var(--text-gray); 
-            font-size: 1.8rem; 
-            margin: 0 20px; 
-            transition: var(--transition); 
-        }
-        .social-icons a:hover { color: var(--primary-gold); transform: scale(1.2); text-shadow: 0 0 10px var(--gold-glow); }
-        footer p { color: var(--text-gray); font-size: 1rem; font-weight: 300; }
-
-        /* --- Animations --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) { header h1 { font-size: 4rem; letter-spacing: 5px; } }
-        @media (max-width: 768px) { 
-            header h1 { font-size: 3rem; letter-spacing: 3px; } 
-            nav { padding: 15px; flex-wrap: wrap; gap: 10px; }
-            nav a { padding: 5px 15px; font-size: 0.8rem; }
-            .section-title h2 { font-size: 2.2rem; }
-        }
-        /* ===== LOGO SECTION ===== */
+/* LOGO */
 
 .logo-container {
 
-    width: 100%;
+    display:flex;
+    justify-content:center;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding-top: 40px;
-    padding-bottom: 20px;
+    margin-top:40px;
 }
 
 .main-logo {
 
-    width: 220px;
+    width:220px;
 
-    max-width: 85%;
-
-    object-fit: contain;
+    max-width:85%;
 
     filter:
     drop-shadow(0 0 15px rgba(255,0,0,0.35))
     drop-shadow(0 0 35px rgba(255,0,0,0.15));
 
-    transition: 0.4s ease;
+    transition:0.4s;
 }
 
 .main-logo:hover {
 
-    transform:
-    scale(1.05)
-    rotate(1deg);
-
-    filter:
-    drop-shadow(0 0 20px rgba(255,0,0,0.6))
-    drop-shadow(0 0 45px rgba(255,0,0,0.25));
+    transform:scale(1.05);
 }
-        form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 
-    margin-top: 30px;
+header h1 {
+
+    font-size:5rem;
+
+    margin-top:20px;
+
+    color:#ff1a1a;
+
+    text-shadow:0 0 20px rgba(255,0,0,0.5);
+}
+
+header p {
+
+    margin-top:15px;
+
+    font-size:1.3rem;
+
+    color:#ddd;
+}
+
+/* SECTION */
+
+.section-title {
+
+    text-align:center;
+
+    margin-top:80px;
+    margin-bottom:50px;
+}
+
+.section-title h2 {
+
+    font-size:3rem;
+}
+
+.section-title span {
+
+    color:var(--primary-red);
+}
+
+/* CARDS */
+
+.container {
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:20px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:30px;
+}
+
+.card {
+
+    background:var(--card-bg);
+
+    padding:40px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    transition:0.4s;
+}
+
+.card:hover {
+
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 0 25px rgba(255,0,0,0.2);
+}
+
+.card i {
+
+    font-size:3rem;
+
+    color:var(--primary-red);
+
+    margin-bottom:20px;
+}
+
+.card h2 {
+
+    margin-bottom:20px;
+}
+
+.card p {
+
+    color:var(--text-gray);
+
+    line-height:1.8;
+}
+
+/* FORM */
+
+form {
+
+    max-width:700px;
+
+    margin:80px auto;
+
+    padding:30px;
+
+    background:rgba(255,255,255,0.04);
+
+    border-radius:25px;
 }
 
 form input,
 form textarea {
-    padding: 15px;
 
-    border-radius: 12px;
-    border: none;
+    width:100%;
 
-    background: rgba(255,255,255,0.08);
-    color: white;
+    padding:15px;
 
-    font-size: 1rem;
+    margin-bottom:20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:1rem;
 }
 
 form textarea {
-    min-height: 140px;
+
+    min-height:150px;
 }
 
-#commentsContainer {
-    margin-top: 40px;
+.btn {
 
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    background:var(--primary-red);
+
+    color:white;
+
+    border:none;
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.btn:hover {
+
+    background:white;
+
+    color:black;
+}
+
+/* COMMENTS */
+
+#commentsContainer {
+
+    max-width:900px;
+
+    margin:50px auto;
+
+    padding:20px;
 }
 
 .comment-box {
-    background: rgba(255,255,255,0.05);
 
-    padding: 20px;
-    border-radius: 15px;
+    background:rgba(255,255,255,0.05);
 
-    border-left: 4px solid #fbbf24;
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+
+    border-left:4px solid #ff1a1a;
 }
 
 .comment-box h3 {
-    margin-bottom: 8px;
 
-    color: #fbbf24;
+    color:#ff1a1a;
+
+    margin-bottom:8px;
 }
-.comment-box
-const scriptURL = "https://script.google.com/macros/s/AKfycbx1JnACDxPHRrH_Hh2tj2-5Tew-k51ZSsFirks3_sQ97wKSr8exON-rpNXqIc0jT9Ps/exec";
 
-const form = document.getElementById("commentForm");
+.comment-box span {
 
-const commentsContainer = document.getElementById("commentsContainer");
+    color:#aaa;
 
-if(form){
+    font-size:0.9rem;
+}
 
-form.addEventListener("submit", async (e) => {
+.comment-box p {
+
+    margin-top:15px;
+
+    line-height:1.8;
+}
+
+/* WHATSAPP */
+
+.whatsapp-float {
+
+    position:fixed;
+
+    bottom:30px;
+    right:30px;
+
+    width:65px;
+    height:65px;
+
+    background:#25d366;
+
+    color:white;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:32px;
+
+    text-decoration:none;
+
+    z-index:1000;
+}
+
+/* FOOTER */
+
+footer {
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    background:#050505;
+
+    margin-top:80px;
+}
+
+.social-icons {
+
+    margin-bottom:20px;
+}
+
+.social-icons a {
+
+    color:white;
+
+    margin:0 15px;
+
+    font-size:1.5rem;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    header h1{
+        font-size:3rem;
+    }
+
+    nav{
+        gap:15px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Gallery</a>
+    <a href="#">Booking</a>
+    <a href="#">About</a>
+
+</nav>
+
+<header>
+
+<div class="logo-container">
+
+<img src="logo.jpeg" alt="Logo" class="main-logo">
+
+</div>
+
+<h1>K-WIN</h1>
+
+<p>The Trademark of Kind Win</p>
+
+</header>
+
+<a href="https://wa.me/94707140731"
+class="whatsapp-float"
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<div class="section-title">
+
+<h2><span>Our</span> Services</h2>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<i class="fas fa-mobile-alt"></i>
+
+<h2>Mobile Solutions</h2>
+
+<p>
+Display repair, Software updates,
+Data Recovery සහ සියලු Mobile Solutions.
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-microphone-alt"></i>
+
+<h2>Audio Studio</h2>
+
+<p>
+Wedding Tracks, Voice Recording,
+Mixing & Mastering.
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-shuttle-space"></i>
+
+<h2>Quick Fix</h2>
+
+<p>
+Fast service with premium quality.
+</p>
+
+</div>
+
+</div>
+
+<!-- COMMENT FORM -->
+
+<form id="commentForm">
+
+<input
+type="text"
+id="name"
+placeholder="Your Name"
+required>
+
+<input
+type="email"
+id="email"
+placeholder="Your Email"
+required>
+
+<textarea
+id="comment"
+placeholder="Your Comment"
+required></textarea>
+
+<button type="submit" class="btn">
+
+Post Comment
+
+</button>
+
+</form>
+
+<!-- COMMENTS -->
+
+<div id="commentsContainer"></div>
+
+<footer>
+
+<div class="social-icons">
+
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+
+<a href="#"><i class="fab fa-youtube"></i></a>
+
+<a href="#"><i class="fab fa-instagram"></i></a>
+
+</div>
+
+<p>© 2026 K-WIN Productions</p>
+
+<p>Kurunegala, Sri Lanka</p>
+
+</footer>
+
+<script>
+
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbx1JnACDxPHRrH_Hh2tj2-5Tew-k51ZSsFirks3_sQ97wKSr8exON-rpNXqIc0jT9Ps/exec";
+
+const form =
+document.getElementById("commentForm");
+
+const commentsContainer =
+document.getElementById("commentsContainer");
+
+form.addEventListener("submit", async (e)=>{
 
     e.preventDefault();
 
     const data = {
 
-        name: document.getElementById("name").value,
+        name:
+        document.getElementById("name").value,
 
-        email: document.getElementById("email").value,
+        email:
+        document.getElementById("email").value,
 
-        comment: document.getElementById("comment").value
+        comment:
+        document.getElementById("comment").value
     };
 
-    await fetch(scriptURL, {
+    try{
 
-        method: "POST",
+        await fetch(scriptURL,{
 
-        body: JSON.stringify(data)
-    });
+            method:"POST",
 
-    alert("Comment Posted Successfully");
+            body:JSON.stringify(data),
 
-    form.reset();
+            headers:{
+                "Content-Type":"application/json"
+            }
 
-    loadComments();
+        });
+
+        alert("Comment Posted!");
+
+        form.reset();
+
+        loadComments();
+
+    }catch(error){
+
+        alert("Error Posting Comment");
+
+        console.log(error);
+    }
+
 });
-
-}
 
 async function loadComments(){
 
-    const res = await fetch(scriptURL);
+    try{
 
-    const data = await res.json();
+        const res =
+        await fetch(scriptURL);
 
-    commentsContainer.innerHTML = "";
+        const data =
+        await res.json();
 
-    data.reverse().forEach(comment => {
+        commentsContainer.innerHTML = "";
 
-        commentsContainer.innerHTML += `
+        data.reverse().forEach(comment=>{
 
-        <div class="comment-box">
+            commentsContainer.innerHTML += `
 
-            <h3>${comment.name}</h3>
+            <div class="comment-box">
 
-            <span>${comment.email}</span>
+                <h3>${comment.name}</h3>
 
-            <p>${comment.comment}</p>
+                <span>${comment.email}</span>
 
-        </div>
-        `;
-    });
+                <p>${comment.comment}</p>
+
+            </div>
+
+            `;
+        });
+
+    }catch(error){
+
+        console.log(error);
+    }
 }
 
 loadComments();
-    </style>
-</head>
-<body>
-    <header>          
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="services.html"> Services </a>
-         <a href="gallery.html"> Gallery </a>
-        <a href="Booking.html"> Booking Now </a>
-        <a href="about.html"> About Us </a>
-    </nav>
-<body>      
-    <div class="logo-container">
 
-    <img src="logo.jpeg" alt="K-WIN Logo" class="main-logo">
-
-</div>
-    <a href="https://wa.me/94707140731" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-        <h1>K-WIN</h1>
-        <p>The Trademark of Kind Win</p>
-     
-    </header>
-
-    <div class="section-title" id="services">
-        <h2><span>Our</span> Premium Services</h2>
-        <div></div>
-    </div>
-
-    <div class="container">
-        <div class="card">
-            <i class="fas fa-mobile-alt"></i>
-            <h2>Mobile Solutions</h2>
-            <p>දර්ශන තිරය (Display) මාරු කිරීම, මෘදුකාංග යාවත්කාලීන කිරීම් සහ දත්ත නැවත ලබා ගැනීම (Data Recovery) ඇතුළු සියලුම ජංගම දුරකථන ගැටළු සඳහා විශ්වාසනීය සහ කඩිනම් විසඳුම්.</p>
-        </div>
-
-        <div class="card">
-            <div class="icon-wrapper">
-                <i class="fas fa-microphone-alt"></i>
-                <i class="fas fa-wave-square" style="font-size: 1.5rem; position: absolute; bottom: -10px; right: -10px; opacity: 0.7;"></i>
-            </div>
-            <h2>Audio Studio</h2>
-            <p>මංගල උත්සව සඳහා විශේෂිත ගීත නිර්මාණය (Wedding Tracks), වෘත්තීය මට්ටමේ හඬ පටිගත කිරීම් (Voiceover) සහ ශබ්ද පරිපාලනය (Audio Mixing/Mastering) අතිඋසස් අන්දමින්.</p>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-shuttle-space"></i>
-            <h2>Quick Fix</h2>
-            <p>අපගේ ප්‍රමුඛතාවය ඔබගේ කාලයයි. ඉතා කෙටි කාලයක් තුළ, උපරිම ගුණාත්මකභාවයෙන් යුතුව ඔබගේ උපාංග හෝ Audio අවශ්‍යතා නිමවා දීමට අප බැඳී සිටිමු.</p>
-        </div>
-    </div>
-    
-    <form id="commentForm">
-
-    <input type="text" id="name" placeholder="Your Name" required>
-
-    <input type="email" id="email" placeholder="Your Email" required>
-
-    <textarea id="comment" placeholder="Your Comment" required></textarea>
-
-    <button type="submit" class="btn">
-        Post Comment
-    </button>
-
-</form>
-
-<div id="commentsContainer"></div>
-
-    <footer id="contact">
-        <div class="social-icons">
-            <a href=""><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p>© 2026 K-win Productions </p>
-        <p style="font-size: 0.85rem; margin-top: 10px;">Kurunegala, Sri Lanka</p>
-    </footer>
+</script>
 
 </body>
-</html> 
+</html>
