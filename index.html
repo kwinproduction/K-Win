@@ -3,356 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-win | Premium Tech & Audio Solutions</title>
+    <title>K-WIN | Home</title>
+
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-gold: #fbbf24;
-            --gold-glow: rgba(251, 191, 36, 0.4);
-            --dark-bg: #0b1120;
-            --card-bg: rgba(30, 41, 59, 0.5); /* For Glassmorphism */
-            --text-main: #f1f5f9;
-            --text-gray: #94a3b8;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        /* --- Custom Scrollbar --- */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--dark-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-gold); border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
-
-        /* --- Header / Hero Section --- */
-        header {
-            background: linear-gradient(rgba(11, 17, 32, 0.8), rgba(11, 17, 32, 0.95)), 
-                        url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Parallax Effect */
-            padding: 180px 20px;
-            text-align: center;
-            border-bottom: 2px solid rgba(251, 191, 36, 0.3);
-        }
-
-        header h1 { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 5.5rem; 
-            margin: 0; 
-            color: var(--primary-gold); 
-            text-transform: uppercase; 
-            letter-spacing: 10px;
-            font-weight: 800;
-            text-shadow: 0 0 20px var(--gold-glow);
-            animation: fadeInDown 1s ease;
-        }
-
-        header p { 
-            font-size: 1.6rem; 
-            color: #fff; 
-            margin-top: 15px; 
-            font-weight: 300;
-            letter-spacing: 1px;
-            animation: fadeInUp 1s ease 0.3s backwards;
-        }
-
-        /* --- Modern Navigation (Glassmorphism) --- */
-        nav {
-            background: rgba(15, 23, 42, 0.8);
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(15px); /* Core of Glassmorphism */
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        nav a { 
-            color: white; 
-            text-decoration: none; 
-            padding: 5px 30px; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            font-size: 0.9rem; 
-            transition: var(--transition);
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background-color: var(--primary-gold);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
-
-        nav a:hover { color: var(--primary-gold); }
-        nav a:hover::after { width: 80%; }
-
-        /* --- Section Titles --- */
-        .section-title { text-align: center; margin-top: 100px; margin-bottom: 60px; }
-        .section-title h2 { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem; 
-            color: var(--text-main); 
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .section-title h2 span { color: var(--primary-gold); }
-        .section-title div { width: 80px; height: 4px; background: var(--primary-gold); margin: 0 auto; border-radius: 2px; box-shadow: 0 0 10px var(--gold-glow); }
-
-        /* --- Cards Container --- */
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 40px; 
-        }
-
-        /* --- Service Cards (Glassmorphism & Glow) --- */
-        .card {
-            background: var(--card-bg);
-            padding: 50px 40px;
-            border-radius: 24px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(255,255,255,0) 70%);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 0;
-        }
-
-        .card:hover { 
-            transform: translateY(-15px) scale(1.02); 
-            border-color: rgba(251, 191, 36, 0.5); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(251, 191, 36, 0.1); 
-        }
-
-        .card:hover::before { opacity: 1; top: -20%; left: -20%; }
-
-        .card i, .card .icon-wrapper { 
-            font-size: 3.5rem; 
-            color: var(--primary-gold); 
-            margin-bottom: 30px; 
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 15px var(--gold-glow);
-        }
-
-        .card h2 { font-size: 2rem; margin-bottom: 20px; position: relative; z-index: 1; font-weight: 600; }
-        .card p { color: var(--text-gray); line-height: 1.9; font-size: 1.05rem; position: relative; z-index: 1; font-weight: 300; }
-
-        /* --- Testimonials Section --- */
-        .testimonials { background: #080d1a; padding: 100px 0; margin-top: 100px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .testi-card { 
-            background: rgba(15, 23, 42, 0.6); 
-            padding: 40px; 
-            border-radius: 20px; 
-            font-style: italic; 
-            position: relative; 
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: var(--transition);
-        }
-        .testi-card:hover { border-color: var(--primary-gold); }
-        .testi-card::before { 
-            content: "\f10d"; 
-            font-family: "Font Awesome 5 Free"; 
-            font-weight: 900; 
-            position: absolute; 
-            top: 20px; 
-            left: 20px; 
-            color: rgba(251, 191, 36, 0.2); 
-            font-size: 3rem; 
-        }
-        .testi-name { display: block; margin-top: 25px; color: var(--primary-gold); font-weight: bold; font-style: normal; font-size: 1.1rem; letter-spacing: 1px;}
-
-        /* --- Premium Buttons --- */
-        .btn { 
-            display: inline-block; 
-            margin-top: 30px; 
-            padding: 14px 40px; 
-            background: var(--primary-gold); 
-            color: #000; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            transition: var(--transition); 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn:hover { 
-            background: #fff; 
-            transform: translateY(-3px); 
-            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3), 0 0 15px rgba(251, 191, 36, 0.2);
-        }
-
-        /* --- Floating WhatsApp (Glow) --- */
-        .whatsapp-float { 
-            position: fixed; 
-            bottom: 40px; 
-            right: 40px; 
-            background: #25d366; 
-            color: white; 
-            width: 65px; 
-            height: 65px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 34px; 
-            z-index: 1001; 
-            transition: var(--transition); 
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-        }
-        .whatsapp-float:hover { transform: scale(1.1) rotate(15deg); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5); }
-
-        /* --- Footer --- */
-        footer { background: #050810; padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .social-icons { margin-bottom: 30px; }
-        .social-icons a { 
-            color: var(--text-gray); 
-            font-size: 1.8rem; 
-            margin: 0 20px; 
-            transition: var(--transition); 
-        }
-        .social-icons a:hover { color: var(--primary-gold); transform: scale(1.2); text-shadow: 0 0 10px var(--gold-glow); }
-        footer p { color: var(--text-gray); font-size: 1rem; font-weight: 300; }
-
-        /* --- Animations --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) { header h1 { font-size: 4rem; letter-spacing: 5px; } }
-        @media (max-width: 768px) { 
-            header h1 { font-size: 3rem; letter-spacing: 3px; } 
-            nav { padding: 15px; flex-wrap: wrap; gap: 10px; }
-            nav a { padding: 5px 15px; font-size: 0.8rem; }
-            .section-title h2 { font-size: 2.2rem; }
-        }
-    </style>
 </head>
 <body>
 
-    <a href="https://wa.me/947XXXXXXXX" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+<nav>
+    <div class="logo">K-WIN</div>
 
-    <header>
-        <h1>K-WIN</h1>
-        <p>Expert Mobile Solutions & Audio Masterworks</p>
-        <a href="#services" class="btn">Explore Our World</a>
-    </header>
-
-    <nav>
-        <a href="#">Home</a>
-        <a href="#services">Services</a>
-        <a href="#testimonials">Reviews</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="section-title" id="services">
-        <h2><span>Our</span> Premium Services</h2>
-        <div></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Booking Now </a>
+        <a href="contact.html">Contact</a>
     </div>
+</nav>
 
-    <div class="container">
-        <div class="card">
-            <i class="fas fa-mobile-alt"></i>
-            <h2>Mobile Solutions</h2>
-            <p>දර්ශන තිරය (Display) මාරු කිරීම, මෘදුකාංග යාවත්කාලීන කිරීම් සහ දත්ත නැවත ලබා ගැනීම (Data Recovery) ඇතුළු සියලුම ජංගම දුරකථන ගැටළු සඳහා විශ්වාසනීය සහ කඩිනම් විසඳුම්.</p>
-            <a href="#" class="btn">Book Repair</a>
-        </div>
+<header>
+    <h1>K-WIN</h1>
+    <p>Expert Mobile Solutions & Audio Masterworks</p>
 
-        <div class="card">
-            <div class="icon-wrapper">
-                <i class="fas fa-microphone-alt"></i>
-                <i class="fas fa-wave-square" style="font-size: 1.5rem; position: absolute; bottom: -10px; right: -10px; opacity: 0.7;"></i>
-            </div>
-            <h2>Audio Studio</h2>
-            <p>මංගල උත්සව සඳහා විශේෂිත ගීත නිර්මාණය (Wedding Tracks), වෘත්තීය මට්ටමේ හඬ පටිගත කිරීම් (Voiceover) සහ ශබ්ද පරිපාලනය (Audio Mixing/Mastering) අතිඋසස් අන්දමින්.</p>
-            <a href="#" class="btn">Hear Samples</a>
-        </div>
+    <a href="services.html" class="btn">Explore Services</a>
+</header>
+<section class="about-section">
+    <h2>Welcome To K-WIN</h2>
 
-        <div class="card">
-            <i class="fas fa-shuttle-space"></i>
-            <h2>Quick Fix</h2>
-            <p>අපගේ ප්‍රමුඛතාවය ඔබගේ කාලයයි. ඉතා කෙටි කාලයක් තුළ, උපරිම ගුණාත්මකභාවයෙන් යුතුව ඔබගේ උපාංග හෝ Audio අවශ්‍යතා නිමවා දීමට අප බැඳී සිටිමු.</p>
-            <a href="#contact" class="btn">Get in Touch</a>
-        </div>
-    </div>
+    <p>
+        Premium Mobile Repairing සහ Professional Audio Production සේවාවන්
+        ලබාදෙන ශ්‍රී ලංකාවේ නවීනතම Solution Hub එක.
+    </p>
+</section>
 
-    <div class="testimonials" id="testimonials">
-        <div class="section-title">
-            <h2><span>Happy</span> Clients</h2>
-            <div></div>
-        </div>
-        <div class="container">
-            <div class="testi-card">
-                "මගේ Phone එක සම්පූර්ණයෙන්ම කැඩිලා තිබුණේ. K-win එකෙන් ඒක අලුත් එකක් වගේ හදලා දුන්නා, ඒ වගේම හැම Data එකක්ම බේරලා දුන්නා. Great service!"
-                <span class="testi-name">- Oshan Jayaratne</span>
-            </div>
-            <div class="testi-card">
-                "අපේ Pre-shoot එකට ඕනේ වුණ සින්දුව එයාලා හිතුවටත් වඩා ලස්සනට, ඉක්මනට හදලා දුන්නා. Music quality එක උපරිමයි. හැමෝටම Recommend කරනවා!"
-                <span class="testi-name">- Saumaya Hettiarachchi</span>
-            </div>
-        </div>
-    </div>
+<footer>
+    <p>© 2026 K-WIN Productions</p>
+</footer>
 
-    <footer id="contact">
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p>© 2026 K-win Productions | Premium Tech & Audio Solutions</p>
-        <p style="font-size: 0.85rem; margin-top: 10px;">Kurunegala, Sri Lanka</p>
-    </footer>
-
+<script src="js/script.js"></script>
 </body>
 </html>
