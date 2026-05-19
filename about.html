@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>K-WIN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+
+:root {
+
+    --primary-red: #ff1a1a;
+    --red-glow: rgba(255, 26, 26, 0.4);
+
+    --dark-bg: #000000;
+
+    --card-bg: rgba(20,20,20,0.75);
+
+    --text-main: #ffffff;
+
+    --text-gray: #b0b0b0;
+
+    --transition: all 0.4s ease;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+
+    font-family: 'Poppins', sans-serif;
+
+    background:
+    radial-gradient(circle at top right,
+    rgba(255,0,0,0.08),
+    transparent 30%),
+
+    radial-gradient(circle at bottom left,
+    rgba(255,255,255,0.04),
+    transparent 30%),
+
+    #000000;
+
+    color: var(--text-main);
+
+    overflow-x:hidden;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width:10px;
+}
+
+::-webkit-scrollbar-track {
+    background:#000;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background:linear-gradient(
+    180deg,
+    #ff1a1a,
+    #b30000);
+
+    border-radius:10px;
+}
+
+/* HEADER */
+
+header {
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600');
+
+    background-size:cover;
+    background-position:center;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+/* NAVBAR */
+
+nav {
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    padding:25px;
+
+    position:sticky;
+    top:0;
+
+    background:rgba(0,0,0,0.5);
+
+    backdrop-filter:blur(10px);
+
+    z-index:1000;
+}
+
+nav a {
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+nav a:hover {
+
+    color:var(--primary-red);
+}
+
+/* LOGO */
+
+.logo-container {
+
+    display:flex;
+    justify-content:center;
+
+    margin-top:40px;
+}
+
+.main-logo {
+
+    width:220px;
+
+    max-width:85%;
+
+    filter:
+    drop-shadow(0 0 15px rgba(255,0,0,0.35))
+    drop-shadow(0 0 35px rgba(255,0,0,0.15));
+
+    transition:0.4s;
+}
+
+.main-logo:hover {
+
+    transform:scale(1.05);
+}
+
+header h1 {
+
+    font-size:5rem;
+
+    margin-top:20px;
+
+    color:#ff1a1a;
+
+    text-shadow:0 0 20px rgba(255,0,0,0.5);
+}
+
+header p {
+
+    margin-top:15px;
+
+    font-size:1.3rem;
+
+    color:#ddd;
+}
+
+/* SECTION */
+
+.section-title {
+
+    text-align:center;
+
+    margin-top:80px;
+    margin-bottom:50px;
+}
+
+.section-title h2 {
+
+    font-size:3rem;
+}
+
+.section-title span {
+
+    color:var(--primary-red);
+}
+
+/* CARDS */
+
+.container {
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:20px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:30px;
+}
+
+.card {
+
+    background:var(--card-bg);
+
+    padding:40px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    transition:0.4s;
+}
+
+.card:hover {
+
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 0 25px rgba(255,0,0,0.2);
+}
+
+.card i {
+
+    font-size:3rem;
+
+    color:var(--primary-red);
+
+    margin-bottom:20px;
+}
+
+.card h2 {
+
+    margin-bottom:20px;
+}
+
+.card p {
+
+    color:var(--text-gray);
+
+    line-height:1.8;
+}
+
+/* FORM */
+
+form {
+
+    max-width:700px;
+
+    margin:80px auto;
+
+    padding:30px;
+
+    background:rgba(255,255,255,0.04);
+
+    border-radius:25px;
+}
+
+form input,
+form textarea {
+
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:1rem;
+}
+
+form textarea {
+
+    min-height:150px;
+}
+
+.btn {
+
+    background:var(--primary-red);
+
+    color:white;
+
+    border:none;
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.btn:hover {
+
+    background:white;
+
+    color:black;
+}
+
+/* COMMENTS */
+
+#commentsContainer {
+
+    max-width:900px;
+
+    margin:50px auto;
+
+    padding:20px;
+}
+
+.comment-box {
+
+    background:rgba(255,255,255,0.05);
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+
+    border-left:4px solid #ff1a1a;
+}
+
+.comment-box h3 {
+
+    color:#ff1a1a;
+
+    margin-bottom:8px;
+}
+
+.comment-box span {
+
+    color:#aaa;
+
+    font-size:0.9rem;
+}
+
+.comment-box p {
+
+    margin-top:15px;
+
+    line-height:1.8;
+}
+
+/* WHATSAPP */
+
+.whatsapp-float {
+
+    position:fixed;
+
+    bottom:30px;
+    right:30px;
+
+    width:65px;
+    height:65px;
+
+    background:#25d366;
+
+    color:white;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:32px;
+
+    text-decoration:none;
+
+    z-index:1000;
+}
+
+/* FOOTER */
+
+footer {
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    background:#050505;
+
+    margin-top:80px;
+}
+
+.social-icons {
+
+    margin-bottom:20px;
+}
+
+.social-icons a {
+
+    color:white;
+
+    margin:0 15px;
+
+    font-size:1.5rem;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    header h1{
+        font-size:3rem;
+    }
+
+    nav{
+        gap:15px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="index.html">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Gallery</a>
+    <a href="#">Booking</a>
+    <a href="about.html">About</a>
+
+</nav>
+
+<header>
+
+<div class="logo-container">
+
+<img src="logo.jpeg" alt="Logo" class="main-logo">
+
+</div>
+
+<h1>K-WIN</h1>
+
+<p>The Trademark of Kind Win</p>
+
+</header>
+
+<a href="https://wa.me/94707140731"
+class="whatsapp-float"
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+<div class="social-icons">
+
+<a href=""><i class="fab fa-facebook-f"></i></a>
+
+<a href=""><i class="fab fa-youtube"></i></a>
+
+<a href=""><i class="fab fa-instagram"></i></a>
+
+</div>
+
+<p>© 2026 K-WIN Productions</p>
+
+<p>Kurunegala, Sri Lanka</p>
+
+</footer>
+
+<script>
+
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbwn6Sgjj_o8CaZ0B-nCXeS9GRh0KBj232H2DHy3ZT3pk7nVlvKmcEUacxvsBXBaOows/exec";
+
+const form =
+document.getElementById("commentForm");
+
+const commentsContainer =
+document.getElementById("commentsContainer");
+
+form.addEventListener("submit", async (e)=>{
+
+    e.preventDefault();
+
+    const data = {
+
+        name:
+        document.getElementById("name").value,
+
+        email:
+        document.getElementById("email").value,
+
+        comment:
+        document.getElementById("comment").value
+    };
+
+    try{
+
+        await fetch(scriptURL,{
+
+            method:"POST",
+
+            body:JSON.stringify(data),
+
+            headers:{
+                "Content-Type":"application/json"
+            }
+
+        });
+
+        alert("Comment Posted!");
+
+        form.reset();
+
+        loadComments();
+
+    }catch(error){
+
+        alert("Error Posting Comment");
+
+        console.log(error);
+    }
+
+});
+
+async function loadComments(){
+
+    try{
+
+        const res =
+        await fetch(scriptURL);
+
+        const data =
+        await res.json();
+
+        commentsContainer.innerHTML = "";
+
+        data.reverse().forEach(comment=>{
+
+            commentsContainer.innerHTML += `
+
+            <div class="comment-box">
+
+                <h3>${comment.name}</h3>
+
+                <span>${comment.email}</span>
+
+                <p>${comment.comment}</p>
+
+            </div>
+
+            `;
+        });
+
+    }catch(error){
+
+        console.log(error);
+    }
+}
+
+loadComments();
+
+</script>
+
+</body>
+</html> siyaluma erro hadala full code
