@@ -1,0 +1,60 @@
+:root {
+    --primary-gold: #fbbf24;
+    --dark-bg: #0b1120;
+    --card-bg: rgba(30,41,59,0.5);
+    --text-main: #f1f5f9;
+    --text-gray: #94a3b8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-main);
+}
+
+nav {
+    background: rgba(15,23,42,0.9);
+    padding: 20px 10%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--primary-gold);
+    font-weight: 800;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-gold);
+}
+
+header {
+    height: 100vh;
+
+    background: linear-gradient(rgba(11,17,32,0.8), rgba(11,17,32,0.9)),
+    url('../images/hero-bg.jpg');
+
+    background-size: cover;
+    background-position: center;
+}
