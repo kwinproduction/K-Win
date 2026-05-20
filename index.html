@@ -182,8 +182,6 @@ input,textarea{
 <h1>K-WIN</h1>
 <p>The Trademark of Kind Win</p>
 
-</header>
-
 <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
@@ -225,7 +223,7 @@ input,textarea{
 </div>
 
 </div>
-
+</header>
 <!-- FORM -->
 <form id="commentForm">
 
@@ -251,7 +249,7 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbwn6Sgjj_o8CaZ0B-nCXe
 const form = document.getElementById("commentForm");
 const commentsContainer = document.getElementById("commentsContainer");
 
-form.addEventListener("submit", async (e)=>{
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const data = {
@@ -260,31 +258,35 @@ form.addEventListener("submit", async (e)=>{
         comment: document.getElementById("comment").value
     };
 
-    try{
-        await fetch(scriptURL,{
-            method:"POST",
-            body:JSON.stringify(data),
-            headers:{"Content-Type":"application/json"}
+    try {
+        // Content-Type එක text/plain කරාම CORS block වෙන්නේ නැහැ
+        await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            }
         });
 
         alert("Comment Posted!");
         form.reset();
         loadComments();
 
-    }catch(err){
+    } catch (err) {
         alert("Error Posting Comment");
-        console.log(err);
+        console.error(err);
     }
 });
 
-async function loadComments(){
-    try{
+async function loadComments() {
+    try {
         const res = await fetch(scriptURL);
         const data = await res.json();
 
         commentsContainer.innerHTML = "";
 
-        data.reverse().forEach(c=>{
+        // අලුත්ම comment උඩට එන්න reverse කරනවා
+        data.reverse().forEach(c => {
             commentsContainer.innerHTML += `
                 <div class="comment-box">
                     <h3>${c.name}</h3>
@@ -294,11 +296,12 @@ async function loadComments(){
             `;
         });
 
-    }catch(err){
-        console.log(err);
+    } catch (err) {
+        console.error("Error loading comments:", err);
     }
 }
 
+// Page එක load වෙද්දීම පරණ comment ටික පෙන්නන්න
 loadComments();
 
 </script>
