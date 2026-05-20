@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-WIN</title>
+    <title>K-WIN Productions</title>
 
-    <!-- Dynamic SVG Web Icon (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --primary-red: #ff1a1a;
-            --primary-red-glow: rgba(255, 26, 26, 0.4);
+            --primary-red-glow: rgba(255, 26, 26, 0.5);
             --dark-bg: #0a0a0a;
             --dark-card: #141414;
-            --glass-bg: rgba(20, 20, 20, 0.75);
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --input-bg: rgba(255, 255, 255, 0.05);
@@ -45,28 +41,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
+            padding: 15px 8%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .nav-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+        .nav-logo-link {
+            display: flex;
+            align-items: center;
             text-decoration: none;
         }
 
-        /* Customized Logo Colors: K (White), W (Red), IN (White) */
-        .k-text { color: #ffffff; }
-        .w-text { color: var(--primary-red); text-shadow: 0 0 15px var(--primary-red-glow); }
-        .in-text { color: #ffffff; }
+        .nav-logo-img {
+            height: 45px;
+            width: auto;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
         .nav-links {
             display: flex;
@@ -87,33 +83,61 @@
 
         /* HERO HEADER */
         header {
-            min-height: 90vh;
+            min-height: 95vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 120px 20px 60px 20px;
-            background: linear-gradient(rgba(10, 10, 10, 0.75), rgba(10, 10, 10, 0.95)),
+            padding: 140px 20px 60px 20px;
+            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.95)),
                         url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600') no-repeat center center/cover;
         }
 
-        .hero-logo-box {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 5.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+        /* RESPONSIVE LOGO CONTAINER & STYLES */
+        .logo-container {
+            margin-bottom: 25px;
             animation: fadeIn 1.2s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        .main-logo {
+            width: 100%;
+            max-width: 260px; /* Desktop Size */
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 0 30px var(--primary-red-glow), 0 0 10px rgba(255,255,255,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .main-logo:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(255, 26, 26, 0.8), 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        /* K-WIN Dynamic Color Text Styling underneath the image */
+        .k-text { color: #ffffff; }
+        .w-text { color: var(--primary-red); text-shadow: 0 0 15px var(--primary-red-glow); }
+        .in-text { color: #ffffff; }
+
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
             letter-spacing: 4px;
             text-transform: uppercase;
             font-weight: 300;
-            margin-bottom: 30px;
+            margin-top: 10px;
         }
 
         /* SECTIONS */
@@ -284,17 +308,6 @@
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .comment-box h3::before {
-            content: '\f007';
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
 
         .comment-box p {
@@ -372,7 +385,7 @@
 
         /* ANIMATIONS */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-12px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeInUp {
@@ -380,10 +393,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* RESPONSIVE DESIGN */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 768px) {
-            nav { padding: 20px 5%; flex-direction: column; gap: 15px; text-align: center; }
-            .hero-logo-box { font-size: 4rem; }
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; text-align: center; }
+            .main-logo { max-width: 180px; } /* Mobile Logo Size */
+            header h1 { font-size: 2.5rem; }
             section { padding: 60px 5% 40px 5%; }
             .section-title h2 { font-size: 2.2rem; }
         }
@@ -392,10 +406,9 @@
 
 <body>
 
-    <!-- NAVIGATION BAR -->
     <nav>
-        <a href="index.html" class="nav-logo">
-            <span class="k-text">K</span><span class="w-text">-W</span><span class="in-text">IN</span>
+        <a href="index.html" class="nav-logo-link">
+            <img src="logo.jpeg" alt="K-WIN Icon" class="nav-logo-img">
         </a>
         <div class="nav-links">
             <a href="index.html" class="active">Home</a>
@@ -405,16 +418,15 @@
         </div>
     </nav>
 
-    <!-- HERO HEADER SECTION -->
     <header>
-        <!-- Dynamic Premium Text Logo -->
-        <div class="hero-logo-box">
-            <span class="k-text">K</span><span class="w-text">-W</span><span class="in-text">IN</span>
+        <div class="logo-container">
+            <img src="logo.jpeg" alt="K-WIN Logo" class="main-logo">
         </div>
+        
+        <h1><span class="k-text">K-</span><span class="w-text">W</span><span class="in-text">IN</span></h1>
         <p>The Trademark of Kind Win</p>
     </header>
 
-    <!-- MAIN CONTENT SECTION (SERVICES) -->
     <main>
         <section id="services">
             <div class="section-title">
@@ -422,35 +434,30 @@
             </div>
 
             <div class="container">
-                <!-- Service Card 1 -->
                 <div class="card">
                     <i class="fas fa-share-alt"></i>
                     <h3>Social Media Promotion</h3>
                     <p>Boost your brand presence with smart social media strategies designed to reach the right audience, increase engagement, and turn attention into real growth.</p>
                 </div>
 
-                <!-- Service Card 2 -->
                 <div class="card">
                     <i class="fas fa-database"></i>
                     <h3>Data Recovery</h3>
                     <p>Lost important files? We provide secure and reliable data recovery solutions to restore your valuable photos, videos, documents, and digital assets.</p>
                 </div>
 
-                <!-- Service Card 3 -->
                 <div class="card">
                     <i class="fas fa-microphone"></i>
                     <h3>Audio Editing</h3>
                     <p>Transform raw audio into a professional-quality experience with enhanced clarity, noise reduction, and high-quality sound optimization.</p>
                 </div>
 
-                <!-- Service Card 4 -->
                 <div class="card">
                     <i class="fas fa-bullhorn"></i>
                     <h3>All Campaigns</h3>
                     <p>From planning to execution, we create powerful digital campaigns that connect your business with the right audience and deliver measurable results.</p>
                 </div>
 
-                <!-- Service Card 5 -->
                 <div class="card">
                     <i class="fas fa-briefcase"></i>
                     <h3>Business Promotion</h3>
@@ -459,7 +466,6 @@
             </div>
         </section>
 
-        <!-- COMMENTS SECTION -->
         <section class="comments-section" id="comments">
             <form id="commentForm">
                 <div class="form-title">Leave a Comment</div>
@@ -473,12 +479,10 @@
         </section>
     </main>
 
-    <!-- FLOATING WHATSAPP BUTTON -->
     <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank" aria-label="Contact on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- FOOTER -->
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -489,7 +493,6 @@
         <p>Kurunegala, Sri Lanka</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC (KEEPING YOUR EXISTING SCRIPT INTEGRATION) -->
     <script>
         const scriptURL = "https://script.google.com/macros/s/AKfycbwHRkAQp_PE5nQsB3BOx7cSpvk8SBdAhMQrjshecy2kYpt2dZdH2gBN7QaD9LRtm-E6/exec";
         const form = document.getElementById("commentForm");
@@ -505,7 +508,6 @@
             };
 
             try {
-                // Content-Type එක text/plain කරාම CORS block වෙන්නේ නැහැ
                 await fetch(scriptURL, {
                     method: "POST",
                     body: JSON.stringify(data),
@@ -531,7 +533,6 @@
 
                 commentsContainer.innerHTML = "";
 
-                // අලුත්ම comment උඩට එන්න reverse කරනවා
                 data.reverse().forEach(c => {
                     commentsContainer.innerHTML += `
                         <div class="comment-box">
@@ -546,7 +547,6 @@
             }
         }
 
-        // Page එක load වෙද්දීම පරණ comment ටික පෙන්නන්න
         loadComments();
     </script>
 </body>
