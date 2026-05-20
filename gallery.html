@@ -3,120 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | K-WIN</title>
+    <title>Gallery | K-WIN </title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Dynamic SVG Web Icon (Favicon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --primary-red: #ff1a1a;
-            --dark-bg: #000;
-            --card-bg: rgba(20, 20, 20, 0.85);
-            --text-main: #fff;
-            --text-gray: #b0b0b0;
+            --primary-red-glow: rgba(255, 26, 26, 0.5);
+            --dark-bg: #0a0a0a;
+            --dark-card: #141414;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--dark-bg);
+            background-color: var(--dark-bg);
             color: var(--text-main);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* NAV */
+        /* NAVIGATION BAR (MATCHES HOME PAGE) */
         nav {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            position: sticky;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            position: fixed;
+            width: 100%;
             top: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
             z-index: 1000;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        nav a {
-            color: #fff;
+        .nav-logo-link {
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            font-weight: 400;
-            transition: 0.3s;
         }
 
-        nav a:hover, nav a.active { color: var(--primary-red); }
+        .nav-logo-img {
+            height: 45px;
+            width: auto;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-red);
+        }
 
         /* GALLERY HEADER */
         .gallery-header {
             text-align: center;
-            padding: 60px 20px 20px;
+            padding: 160px 20px 40px;
+            background: linear-gradient(rgba(10, 10, 10, 0.5), var(--dark-bg));
         }
 
         .gallery-header h1 {
+            font-family: 'Montserrat', sans-serif;
             font-size: 3rem;
+            font-weight: 900;
             margin-bottom: 10px;
+            letter-spacing: 1px;
+            animation: fadeInDown 0.8s ease;
         }
 
-        .gallery-header h1 span { color: var(--primary-red); }
+        .gallery-header h1 span { 
+            color: var(--primary-red); 
+            text-shadow: 0 0 20px var(--primary-red-glow);
+        }
+
+        .gallery-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
 
         /* FILTER BUTTONS */
         .filter-container {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 30px 0;
+            margin: 40px 0 20px;
             flex-wrap: wrap;
+            animation: fadeIn 1s ease;
         }
 
         .filter-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 28px;
             border-radius: 30px;
             cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .filter-btn:hover, .filter-btn.active {
             background: var(--primary-red);
             border-color: var(--primary-red);
-            box-shadow: 0 0 15px rgba(255, 26, 26, 0.4);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(255, 26, 26, 0.35);
+            transform: translateY(-2px);
         }
 
         /* GALLERY GRID */
         .gallery-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px 8% 100px 8%;
+            animation: fadeInUp 1s ease;
         }
 
         .gallery-item {
-            background: var(--card-bg);
-            border-radius: 15px;
+            background: var(--dark-card);
+            border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.15);
+            transform: translateY(-8px);
+            border-color: rgba(255, 26, 26, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
         }
 
         /* CARD MEDIA PREVIEWS */
         .media-preview {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: #111;
             display: flex;
             align-items: center;
@@ -128,42 +185,46 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .gallery-item:hover .media-preview img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
         /* Overlay Icons for Video/Audio */
         .play-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0.8;
-            transition: 0.3s;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(1px);
         }
 
         .gallery-item:hover .play-overlay {
             opacity: 1;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(0px);
         }
 
         .play-overlay i {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             color: #fff;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            text-shadow: 0 0 20px rgba(255, 26, 26, 0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .play-overlay i {
+            transform: scale(1.1);
         }
 
         /* Audio specific preview card style */
         .audio-bg {
-            background: linear-gradient(45deg, #1a1a1a, #2a0000);
+            background: linear-gradient(135deg, #161616, #2d0505);
             width: 100%;
             height: 100%;
             display: flex;
@@ -174,37 +235,38 @@
         }
         
         .audio-bg i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary-red);
+            text-shadow: 0 0 15px rgba(255, 26, 26, 0.3);
         }
 
         /* CARD DETAILS */
         .item-details {
-            padding: 20px;
+            padding: 24px;
             text-align: center;
+            background: var(--dark-card);
         }
 
         .item-details h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 6px;
             color: #fff;
         }
 
         .item-details p {
-            color: var(--text-gray);
-            font-size: 0.9rem;
+            color: var(--primary-red);
+            font-size: 0.85rem;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
-        /* POPUP MODAL */
+        /* POPUP LIGHTBOX MODAL */
         .modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.96);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -213,6 +275,7 @@
             pointer-events: none;
             transition: opacity 0.4s ease;
             padding: 20px;
+            backdrop-filter: blur(8px);
         }
 
         .modal.active {
@@ -222,13 +285,19 @@
 
         .modal-container {
             position: relative;
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
-            background: #0a0a0a;
-            border-radius: 20px;
+            background: #0d0d0d;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 26, 26, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 26, 26, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .modal.active .modal-container {
+            transform: scale(1);
         }
 
         .modal-close {
@@ -236,13 +305,17 @@
             top: 15px;
             right: 20px;
             color: #fff;
-            font-size: 2rem;
+            font-size: 2.2rem;
             cursor: pointer;
             z-index: 2100;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            line-height: 1;
         }
 
-        .modal-close:hover { color: var(--primary-red); }
+        .modal-close:hover { 
+            color: var(--primary-red);
+            transform: rotate(90deg);
+        }
 
         .modal-content {
             width: 100%;
@@ -252,43 +325,49 @@
             align-items: center;
         }
 
-        /* Modal Elements Internal Styling */
+        /* Modal Internals Styling */
         .modal-content img {
             width: 100%;
             max-height: 80vh;
             object-fit: contain;
+            display: block;
         }
 
         .modal-content video {
             width: 100%;
-            max-height: 70vh;
+            max-height: 75vh;
             background: #000;
+            display: block;
+            outline: none;
         }
 
         .audio-player-container {
-            padding: 40px 20px;
+            padding: 50px 30px;
             width: 100%;
             text-align: center;
             background: #111;
         }
 
         .audio-player-container h2 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: var(--primary-red);
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #fff;
         }
 
         .audio-player-container audio {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             margin-top: 10px;
+            outline: none;
         }
 
-        /* WHATSAPP CONTAINER MATCHING HOME */
+        /* FLOATING WHATSAPP BUTTON */
         .whatsapp-float {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 30px;
+            right: 30px;
             width: 60px;
             height: 60px;
             background: #25d366;
@@ -296,67 +375,143 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
+            font-size: 32px;
             color: #fff;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             z-index: 999;
+            transition: all 0.3s ease;
             text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #050505;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .social-icons a {
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--dark-card);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+            background: var(--primary-red);
+            transform: translateY(-4px);
+            box-shadow: 0 5px 15px rgba(255, 26, 26, 0.3);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        /* KEYFRAME ANIMATIONS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; text-align: center; }
+            .gallery-header { padding-top: 190px; }
+            .gallery-header h1 { font-size: 2.3rem; }
+            .gallery-container { padding: 10px 5% 80px 5%; gap: 20px; }
+            .filter-btn { padding: 8px 20px; font-size: 0.88rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION BAR -->
     <nav>
-        <a href="index.html">Home</a>
-        <a href="gallery.html" class="active">Gallery</a>
-        <a href="booking.html">Booking</a>
-        <a href="about.html">About</a>
+        <a href="index.html" class="nav-logo-link">
+            <img src="logo.jpeg" alt="K-WIN Icon" class="nav-logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="gallery.html" class="active">Gallery</a>
+            <a href="booking.html">Booking</a>
+            <a href="about.html">About</a>
+        </div>
     </nav>
 
-    <!-- GALLERY SECTION -->
+    <!-- GALLERY HEADER SECTION -->
     <section class="gallery-header">
         <h1><span>K-WIN</span> Media Gallery</h1>
-        <p>Explore our creations and productions</p>
+        <p>Explore our creations and professional productions</p>
 
         <!-- Filter Buttons -->
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filterGallery('all')">All</button>
-            <button class="filter-btn" onclick="filterGallery('photo')">Photos</button>
-            <button class="filter-btn" onclick="filterGallery('video')">Videos</button>
-            <button class="filter-btn" onclick="filterGallery('audio')">Audio Tracks</button>
+            <button class="filter-btn active" onclick="filterGallery('all', event)">All Projects</button>
+            <button class="filter-btn" onclick="filterGallery('photo', event)">Photos</button>
+            <button class="filter-btn" onclick="filterGallery('video', event)">Videos</button>
+            <button class="filter-btn" onclick="filterGallery('audio', event)">Audio Tracks</button>
         </div>
     </section>
 
-    <!-- GALLERY GRID -->
-    <div class="gallery-container">
+    <!-- GALLERY GRID CONTAINER -->
+    <main class="gallery-container">
 
         <!-- PHOTO CARD 1 -->
         <div class="gallery-item" data-category="photo" data-type="photo" data-src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200">
             <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Photo 1">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Studio Setup">
             </div>
             <div class="item-details">
                 <h3>Studio Setup</h3>
-                <p>Photo</p>
+                <p>Photo Capture</p>
             </div>
         </div>
 
-        <!-- VIDEO CARD 1 (Sample Video Link) -->
+        <!-- VIDEO CARD 1 -->
         <div class="gallery-item" data-category="video" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4">
             <div class="media-preview">
-                <!-- Video Thumbnail Image -->
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=600" alt="Video Thumbnail">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=600" alt="Cinematic Thumbnail">
                 <div class="play-overlay">
                     <i class="fas fa-play-circle"></i>
                 </div>
             </div>
             <div class="item-details">
                 <h3>Cinematic Teaser</h3>
-                <p>Video Clip</p>
+                <p>Video Production</p>
             </div>
         </div>
 
-        <!-- AUDIO CARD 1 (Sample Audio Link) -->
+        <!-- AUDIO CARD 1 -->
         <div class="gallery-item" data-category="audio" data-type="audio" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" data-title="Wedding Track Mix 01">
             <div class="media-preview">
                 <div class="audio-bg">
@@ -375,18 +530,18 @@
         <!-- PHOTO CARD 2 -->
         <div class="gallery-item" data-category="photo" data-type="photo" data-src="https://images.unsplash.com/photo-1516280440614-37939bbacd6a?auto=format&fit=crop&q=80&w=1200">
             <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd6a?auto=format&fit=crop&q=80&w=600" alt="Photo 2">
+                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd6a?auto=format&fit=crop&q=80&w=600" alt="Live Concert">
             </div>
             <div class="item-details">
                 <h3>Live Concert Cover</h3>
-                <p>Photo</p>
+                <p>Photo Capture</p>
             </div>
         </div>
 
         <!-- VIDEO CARD 2 -->
         <div class="gallery-item" data-category="video" data-type="video" data-src="https://www.w3schools.com/html/movie.mp4">
             <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600" alt="Video 2 Thumbnail">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600" alt="Commercial Thumbnail">
                 <div class="play-overlay">
                     <i class="fas fa-play-circle"></i>
                 </div>
@@ -409,59 +564,62 @@
             </div>
             <div class="item-details">
                 <h3>Premium Business Jingle</h3>
-                <p>Audio Track</p>
+                <p>Audio Mastering</p>
             </div>
         </div>
 
-    </div>
+    </main>
 
-    <!-- POPUP MODAL CONTAINER -->
+    <!-- POPUP LIGHTBOX MODAL CONTAINER -->
     <div class="modal" id="mediaModal">
         <span class="modal-close" onclick="closeModal()">&times;</span>
         <div class="modal-container">
             <div class="modal-content" id="modalContent">
-                <!-- Dynamic Content Will Load Here From JS -->
+                <!-- Dynamic Media Content will load here via JavaScript -->
             </div>
         </div>
     </div>
 
-    <!-- WHATSAPP FLOAT -->
-    <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank">
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank" aria-label="Contact on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- FOOTER -->
-    <footer style="text-align:center; padding:60px 20px 40px; color: var(--text-gray);">
-         <div class="social-icons">
-            <a href="https://www.facebook.com/share/18idSjuDgj/"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://youtube.com/@kindwin_18?si=-2pV4FCG4Lh8Q9S1"><i class="fab fa-youtube"></i></a>
-            <a href=""><i class="fab fa-instagram"></i></a>
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://youtube.com/@kindwin_18?si=-2pV4FCG4Lh8Q9S1" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
         <p>© 2026 K-WIN Productions</p>
         <p>Kurunegala, Sri Lanka</p>
     </footer>
 
-    <!-- JAVASCRIPT CODE -->
+    <!-- JAVASCRIPT LOGIC CODE -->
     <script>
-        // 1. FILTER FUNCTIONALITY (All, Photos, Videos, Audio වෙන් කිරීම)
-        function filterGallery(category) {
-            // Update Active Button Style
+        // 1. FILTER GALLERY ITEMS SYSTEM
+        function filterGallery(category, event) {
+            // Active Button Style Toggle
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Show/Hide Items
+            // Item Animation and Visibility Control
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
                     item.style.display = 'block';
+                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 10);
                 } else {
-                    item.style.display = 'none';
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => { item.style.display = 'none'; }, 300);
                 }
             });
         }
 
-        // 2. MODAL POPUP SYSTEM (කාඩ් ක්ලික් කරපුහාම ප්ලේයර්ස් ඕපන් වීම)
+        // 2. LIGHTBOX MODAL CONTROLLER SYSTEM
         const modal = document.getElementById('mediaModal');
         const modalContent = document.getElementById('modalContent');
         const galleryItems = document.querySelectorAll('.gallery-item');
@@ -471,14 +629,12 @@
                 const type = item.getAttribute('data-type');
                 const src = item.getAttribute('data-src');
                 
-                modalContent.innerHTML = ''; // කලින් තිබ්බ ඒවා Clear කරන්න
+                modalContent.innerHTML = ''; // Clear previous data safely
 
                 if (type === 'photo') {
-                    // Photo Popup Layout
-                    modalContent.innerHTML = `<img src="${src}" alt="Enlarged Image">`;
+                    modalContent.innerHTML = `<img src="${src}" alt="Enlarged Project Content">`;
                 } 
                 else if (type === 'video') {
-                    // Video Player Popup Layout with Autoplay
                     modalContent.innerHTML = `
                         <video controls autoplay>
                             <source src="${src}" type="video/mp4">
@@ -487,11 +643,10 @@
                     `;
                 } 
                 else if (type === 'audio') {
-                    // Audio Player Popup Layout with Title
                     const title = item.getAttribute('data-title');
                     modalContent.innerHTML = `
                         <div class="audio-player-container">
-                            <i class="fas fa-compact-disc fa-spin style="font-size: 4rem; color: var(--primary-red); margin-bottom:15px;"></i>
+                            <i class="fas fa-compact-disc fa-spin" style="font-size: 4.5rem; color: var(--primary-red); margin-bottom:20px; text-shadow: 0 0 20px rgba(255,26,26,0.4);"></i>
                             <h2>${title}</h2>
                             <audio controls autoplay>
                                 <source src="${src}" type="audio/mp3">
@@ -501,19 +656,21 @@
                     `;
                 }
 
-                // Modal එක පෙන්වන්න
+                // Activate Lightbox Open
                 modal.classList.add('active');
             });
         });
 
-        // 3. CLOSE MODAL (Popup එක වහද්දි වීඩියෝ/ඕඩියෝ නවත්තනවා)
+        // 3. CLOSE MODAL INTERACTION
         function closeModal() {
             modal.classList.remove('active');
-            // Element එක ඇතුල හිස් කිරීමෙන් ප්ලේ වෙන සින්දු/වීඩියෝ බැක්ග්‍රවුන්ඩ් එකේ රන් වීම සම්පූර්ණයෙන්ම නවතී
-            modalContent.innerHTML = ''; 
+            // Timeout clears inner source immediately after transitions to safely kill video/audio playing in background
+            setTimeout(() => {
+                modalContent.innerHTML = '';
+            }, 350);
         }
 
-        // Modal එකෙන් පිටත (කළු පසුබිම) ක්ලික් කලත් Close වෙන්න සකස් කිරීම
+        // Close when clicking outside content container bounds (Dark Background overlay click)
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
