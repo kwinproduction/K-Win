@@ -111,37 +111,6 @@
             letter-spacing: 1px;
         }
 
-        /* FILTER BUTTONS */
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 40px 0 20px;
-            flex-wrap: wrap;
-            animation: fadeIn 1s ease;
-        }
-
-        .filter-btn {
-            background: rgba(255, 255, 255, 0.03);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 10px 28px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary-red);
-            border-color: var(--primary-red);
-            color: #fff;
-            box-shadow: 0 8px 20px rgba(255, 26, 26, 0.35);
-            transform: translateY(-2px);
-        }
-
         /* GALLERY GRID */
         .gallery-container {
             max-width: 1300px;
@@ -179,17 +148,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-        }
-
-        .media-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .gallery-item:hover .media-preview img {
-            transform: scale(1.06);
         }
 
         /* Overlay Icons for Video/Audio */
@@ -254,19 +212,11 @@
             color: #fff;
         }
 
-        .item-details p {
-            color: var(--primary-red);
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* POPUP LIGHTBOX MODAL */
+        /* NEW PREMIUM POPUP LIGHTBOX MODAL */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.96);
+            background: rgba(5, 5, 5, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -275,7 +225,7 @@
             pointer-events: none;
             transition: opacity 0.4s ease;
             padding: 20px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(15px);
         }
 
         .modal.active {
@@ -285,50 +235,108 @@
 
         .modal-container {
             position: relative;
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
-            background: #0d0d0d;
-            border-radius: 16px;
+            background: #111111;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(255, 26, 26, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transform: scale(0.95);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 26, 26, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transform: scale(0.93);
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
         }
 
         .modal.active .modal-container {
             transform: scale(1);
         }
 
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #fff;
-            font-size: 2.2rem;
-            cursor: pointer;
-            z-index: 2100;
-            transition: all 0.3s ease;
-            line-height: 1;
+        /* Dynamic Modal Header Bar */
+        .modal-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+            background: rgba(20, 20, 20, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .modal-close:hover { 
+        .modal-meta-title h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .modal-meta-title span {
+            font-size: 0.72rem;
             color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .modal-close-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 15px var(--primary-red-glow);
             transform: rotate(90deg);
+        }
+
+        /* Modal Body Wrap */
+        .modal-body {
+            position: relative;
+            width: 100%;
+            background: #0d0d0d;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modern Spinner Animation */
+        .modal-loader {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary-red);
+            font-size: 2.8rem;
+            z-index: 5;
+            text-shadow: 0 0 20px var(--primary-red-glow);
         }
 
         .modal-content {
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-content.loaded {
+            opacity: 1;
         }
 
         /* Modal Internals Styling */
         .modal-content img {
             width: 100%;
-            max-height: 80vh;
+            max-height: 75vh;
             object-fit: contain;
             display: block;
         }
@@ -355,15 +363,15 @@
         }
 
         .audio-player-container {
-            padding: 50px 30px;
+            padding: 60px 40px;
             width: 100%;
             text-align: center;
-            background: #111;
+            background: linear-gradient(135deg, #111, #1a0505);
         }
 
         .audio-player-container h2 {
             margin-bottom: 25px;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             color: #fff;
@@ -449,9 +457,6 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -463,8 +468,10 @@
             .gallery-header { padding-top: 190px; }
             .gallery-header h1 { font-size: 2.3rem; }
             .gallery-container { padding: 10px 5% 80px 5%; gap: 20px; }
-            .filter-btn { padding: 8px 20px; font-size: 0.88rem; }
-            .drive-iframe-container { height: 65vh; }
+            .drive-iframe-container { height: 60vh; }
+            .modal-container { width: 95%; }
+            .modal-header-bar { padding: 15px; }
+            .modal-meta-title h4 { font-size: 1rem; }
         }
     </style>
 </head>
@@ -488,12 +495,12 @@
          <h1><span class="k-text">K-</span><span class="w-text">W</span><span class="in-text">IN</span> Media Gallery</h1>
         <p>Explore our creations and professional productions</p> 
     </section>
+
     <!-- GALLERY GRID CONTAINER -->
     <main class="gallery-container">
 
         <!-- DYNAMIC GOOGLE DRIVE PHOTOS CARD -->
-        <!-- පල්ලෙහා තියෙන data-src එකට ඔයාගේ Google Drive Folder Embed Link එක දාන්න -->
-        <div class="gallery-item" data-category="photo" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1lnazTNgyzJMry6cROmOudn5drW_UuKqY#grid">
+        <div class="gallery-item" data-category="Photos" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1lnazTNgyzJMry6cROmOudn5drW_UuKqY#grid">
             <div class="media-preview">
                 <div class="drive-bg">
                     <i class="fas fa-images"></i>
@@ -508,7 +515,7 @@
         </div>
 
         <!-- DYNAMIC GOOGLE DRIVE VIDEOS CARD -->
-<div class="gallery-item" data-category="video" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1yTeZ1XvrIdVYYMKaYzyj_pP4FVAZW2Nn#grid">
+        <div class="gallery-item" data-category="Videos" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1yTeZ1XvrIdVYYMKaYzyj_pP4FVAZW2Nn#grid">
             <div class="media-preview">
                 <div class="drive-bg">
                     <i class="fas fa-video"></i>
@@ -522,8 +529,8 @@
             </div>
         </div>
 
- <!-- AUDIO CARD  -->
-        <div class="gallery-item" data-category="video" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1tEYXbzxEWIPRHW2FepMoBBxfHKWv-tbb#grid">
+        <!-- AUDIO CARD  -->
+        <div class="gallery-item" data-category="Audios" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1tEYXbzxEWIPRHW2FepMoBBxfHKWv-tbb#grid">
             <div class="media-preview">
                 <div class="audio-bg">
                     <i class="fas fa-music"></i>
@@ -533,17 +540,31 @@
                 </div>
             </div>
             <div class="item-details">
-                <h3>Audio Track Editing </h3>
+                <h3>Audio Track Editing</h3>
             </div>
         </div>
     </main>
 
-    <!-- POPUP LIGHTBOX MODAL CONTAINER -->
+    <!-- ENHANCED POPUP LIGHTBOX MODAL CONTAINER -->
     <div class="modal" id="mediaModal">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
         <div class="modal-container">
-            <div class="modal-content" id="modalContent">
-                <!-- Dynamic Media Content will load here via JavaScript -->
+            <!-- Dynamic Header Bar inside popup -->
+            <div class="modal-header-bar">
+                <div class="modal-meta-title">
+                    <span id="modalCategoryTag">Category</span>
+                    <h4 id="modalProjectTitle">Project Title</h4>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <!-- Content Wrapper with Loader -->
+            <div class="modal-body">
+                <div class="modal-loader" id="modalLoader">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                </div>
+                <div class="modal-content" id="modalContent">
+                    <!-- Loaded dynamically via JS -->
+                </div>
             </div>
         </div>
     </div>
@@ -566,79 +587,92 @@
 
     <!-- JAVASCRIPT LOGIC CODE -->
     <script>
-        // 1. FILTER GALLERY ITEMS SYSTEM
-        function filterGallery(category, event) {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 10);
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.95)';
-                    setTimeout(() => { item.style.display = 'none'; }, 300);
-                }
-            });
-        }
-
-        // 2. LIGHTBOX MODAL CONTROLLER SYSTEM
+        // LIGHTBOX MODAL CONTROLLER SYSTEM
         const modal = document.getElementById('mediaModal');
         const modalContent = document.getElementById('modalContent');
+        const modalLoader = document.getElementById('modalLoader');
+        const modalCategoryTag = document.getElementById('modalCategoryTag');
+        const modalProjectTitle = document.getElementById('modalProjectTitle');
         const galleryItems = document.querySelectorAll('.gallery-item');
 
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {
                 const type = item.getAttribute('data-type');
                 const src = item.getAttribute('data-src');
+                const category = item.getAttribute('data-category');
+                const title = item.querySelector('h3').innerText;
                 
+                // Reset states
+                modalContent.classList.remove('loaded');
+                modalLoader.style.display = 'block';
                 modalContent.innerHTML = ''; 
 
+                // Inject texts into modern header bar
+                modalCategoryTag.innerText = `K-WIN Production • ${category}`;
+                modalProjectTitle.innerText = title;
+
+                // Load appropriate content markup
                 if (type === 'photo') {
-                    modalContent.innerHTML = `<img src="${src}" alt="Enlarged Project Content">`;
+                    modalContent.innerHTML = `<img src="${src}" alt="Project Content" id="mediaTarget">`;
                 } 
                 else if (type === 'video') {
                     modalContent.innerHTML = `
-                        <video controls autoplay>
+                        <video controls autoplay id="mediaTarget">
                             <source src="${src}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     `;
                 } 
                 else if (type === 'audio') {
-                    const title = item.getAttribute('data-title');
                     modalContent.innerHTML = `
                         <div class="audio-player-container">
                             <i class="fas fa-compact-disc fa-spin" style="font-size: 4.5rem; color: var(--primary-red); margin-bottom:20px; text-shadow: 0 0 20px rgba(255,26,26,0.4);"></i>
                             <h2>${title}</h2>
-                            <audio controls autoplay>
+                            <audio controls autoplay id="mediaTarget">
                                 <source src="${src}" type="audio/mp3">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
                     `;
                 }
-                // NEW: GOOGLE DRIVE IFRAME DETECTOR
                 else if (type === 'drive') {
                     modalContent.innerHTML = `
                         <div class="drive-iframe-container">
-                            <iframe src="${src}" allow="autoplay"></iframe>
+                            <iframe src="${src}" allow="autoplay" id="mediaTarget"></iframe>
                         </div>
                     `;
                 }
 
+                // Show modal window
                 modal.classList.add('active');
+
+                // Media load listener to hide spinner gracefully
+                const target = document.getElementById('mediaTarget');
+                if (target) {
+                    if (target.tagName === 'IFRAME' || target.tagName === 'IMG') {
+                        target.onload = () => {
+                            modalLoader.style.display = 'none';
+                            modalContent.classList.add('loaded');
+                        };
+                    } else if (target.tagName === 'VIDEO' || target.tagName === 'AUDIO') {
+                        target.onloadeddata = () => {
+                            modalLoader.style.display = 'none';
+                            modalContent.classList.add('loaded');
+                        };
+                    }
+                } else {
+                    modalLoader.style.display = 'none';
+                    modalContent.classList.add('loaded');
+                }
             });
         });
 
-        // 3. CLOSE MODAL INTERACTION
+        // CLOSE MODAL INTERACTION
         function closeModal() {
             modal.classList.remove('active');
             setTimeout(() => {
                 modalContent.innerHTML = '';
+                modalContent.classList.remove('loaded');
             }, 350);
         }
 
