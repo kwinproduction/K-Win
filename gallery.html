@@ -222,8 +222,8 @@
             transform: scale(1.1);
         }
 
-        /* Audio specific preview card style */
-        .audio-bg {
+        /* Audio & Drive specific preview card style */
+        .audio-bg, .drive-bg {
             background: linear-gradient(135deg, #161616, #2d0505);
             width: 100%;
             height: 100%;
@@ -234,7 +234,7 @@
             gap: 10px;
         }
         
-        .audio-bg i {
+        .audio-bg i, .drive-bg i {
             font-size: 3.5rem;
             color: var(--primary-red);
             text-shadow: 0 0 15px rgba(255, 26, 26, 0.3);
@@ -285,7 +285,7 @@
 
         .modal-container {
             position: relative;
-            max-width: 850px;
+            max-width: 900px;
             width: 100%;
             background: #0d0d0d;
             border-radius: 16px;
@@ -339,6 +339,19 @@
             background: #000;
             display: block;
             outline: none;
+        }
+
+        /* Google Drive Embedded Folder Container Style */
+        .drive-iframe-container {
+            width: 100%;
+            height: 75vh;
+            background: #111;
+        }
+
+        .drive-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         .audio-player-container {
@@ -451,6 +464,7 @@
             .gallery-header h1 { font-size: 2.3rem; }
             .gallery-container { padding: 10px 5% 80px 5%; gap: 20px; }
             .filter-btn { padding: 8px 20px; font-size: 0.88rem; }
+            .drive-iframe-container { height: 65vh; }
         }
     </style>
 </head>
@@ -485,28 +499,36 @@
     <!-- GALLERY GRID CONTAINER -->
     <main class="gallery-container">
 
-        <!-- PHOTO CARD 1 -->
-        <div class="gallery-item" data-category="photo" data-type="photo" data-src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200">
+        <!-- DYNAMIC GOOGLE DRIVE PHOTOS CARD -->
+        <!-- පල්ලෙහා තියෙන data-src එකට ඔයාගේ Google Drive Folder Embed Link එක දාන්න -->
+        <div class="gallery-item" data-category="photo" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1lnazTNgyzJMry6cROmOudn5drW_UuKqY#grid">
             <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Studio Setup">
-            </div>
-            <div class="item-details">
-                <h3>Studio Setup</h3>
-                <p>Photo Capture</p>
-            </div>
-        </div>
-
-        <!-- VIDEO CARD 1 -->
-        <div class="gallery-item" data-category="video" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4">
-            <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=600" alt="Cinematic Thumbnail">
+                <div class="drive-bg">
+                    <i class="fas fa-images"></i>
+                </div>
                 <div class="play-overlay">
-                    <i class="fas fa-play-circle"></i>
+                    <i class="fas fa-folder-open"></i>
                 </div>
             </div>
             <div class="item-details">
-                <h3>Cinematic Teaser</h3>
-                <p>Video Production</p>
+                <h3>K-WIN Photo Collection</h3>
+                <p>Google Drive Cloud</p>
+            </div>
+        </div>
+
+        <!-- DYNAMIC GOOGLE DRIVE VIDEOS CARD -->
+        <div class="gallery-item" data-category="video" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1A2B3C4D5E6F7G8H9I0J_EXAMPLE#grid">
+            <div class="media-preview">
+                <div class="drive-bg">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="play-overlay">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+            </div>
+            <div class="item-details">
+                <h3>K-WIN Video Projects</h3>
+                <p>Google Drive Cloud</p>
             </div>
         </div>
 
@@ -523,31 +545,6 @@
             <div class="item-details">
                 <h3>Wedding Track Mix 01</h3>
                 <p>Audio Track</p>
-            </div>
-        </div>
-
-        <!-- PHOTO CARD 2 -->
-        <div class="gallery-item" data-category="photo" data-type="photo" data-src="https://images.unsplash.com/photo-1516280440614-37939bbacd6a?auto=format&fit=crop&q=80&w=1200">
-            <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd6a?auto=format&fit=crop&q=80&w=600" alt="Live Concert">
-            </div>
-            <div class="item-details">
-                <h3>Live Concert Cover</h3>
-                <p>Photo Capture</p>
-            </div>
-        </div>
-
-        <!-- VIDEO CARD 2 -->
-        <div class="gallery-item" data-category="video" data-type="video" data-src="https://www.w3schools.com/html/movie.mp4">
-            <div class="media-preview">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600" alt="Commercial Thumbnail">
-                <div class="play-overlay">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-            </div>
-            <div class="item-details">
-                <h3>Commercial Campaign</h3>
-                <p>Video Clip</p>
             </div>
         </div>
 
@@ -599,12 +596,10 @@
     <script>
         // 1. FILTER GALLERY ITEMS SYSTEM
         function filterGallery(category, event) {
-            // Active Button Style Toggle
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Item Animation and Visibility Control
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -628,7 +623,7 @@
                 const type = item.getAttribute('data-type');
                 const src = item.getAttribute('data-src');
                 
-                modalContent.innerHTML = ''; // Clear previous data safely
+                modalContent.innerHTML = ''; 
 
                 if (type === 'photo') {
                     modalContent.innerHTML = `<img src="${src}" alt="Enlarged Project Content">`;
@@ -654,8 +649,15 @@
                         </div>
                     `;
                 }
+                // NEW: GOOGLE DRIVE IFRAME DETECTOR
+                else if (type === 'drive') {
+                    modalContent.innerHTML = `
+                        <div class="drive-iframe-container">
+                            <iframe src="${src}" allow="autoplay"></iframe>
+                        </div>
+                    `;
+                }
 
-                // Activate Lightbox Open
                 modal.classList.add('active');
             });
         });
@@ -663,13 +665,11 @@
         // 3. CLOSE MODAL INTERACTION
         function closeModal() {
             modal.classList.remove('active');
-            // Timeout clears inner source immediately after transitions to safely kill video/audio playing in background
             setTimeout(() => {
                 modalContent.innerHTML = '';
             }, 350);
         }
 
-        // Close when clicking outside content container bounds (Dark Background overlay click)
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
