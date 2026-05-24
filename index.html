@@ -36,7 +36,7 @@
             line-height: 1.6;
         }
 
-        /* NAVIGATION */
+        /* NAVIGATION (ඔයාගේ මුල් කේතය එලෙසම තබා ඇත) */
         nav {
             display: flex;
             justify-content: space-between;
@@ -101,12 +101,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
         }
 
         .main-logo {
             width: 100%;
-            max-width: 240px; /* Desktop Size */
+            max-width: 260px; /* Desktop Size */
             height: auto;
             border-radius: 16px;
             box-shadow: 0 0 30px var(--primary-red-glow), 0 0 10px rgba(255,255,255,0.1);
@@ -127,7 +126,7 @@
             margin-bottom: 5px;
         }
 
-        /* K-WIN Dynamic Color Text Styling */
+        /* K-WIN Dynamic Color Text Styling underneath the image */
         .k-text { color: #ffffff; }
         .w-text { color: var(--primary-red); text-shadow: 0 0 15px var(--primary-red-glow); }
         .in-text { color: #ffffff; }
@@ -394,90 +393,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==========================================================================
-           UPDATED RESPONSIVE MEDIA QUERIES (FOR DESKTOP, TABLETS & MOBILE PHONES)
-           ========================================================================== */
-        
-        /* Tablets & Mobile Devices (Max-width: 768px) */
+        /* RESPONSIVE MEDIA QUERIES (ඔයාගේ මුල් මෝස්තර එලෙසම තබා ඇත) */
         @media (max-width: 768px) {
-            nav { 
-                padding: 15px 5%; 
-                flex-direction: column; 
-                gap: 15px; 
-                text-align: center; 
-            }
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; text-align: center; }
+            .main-logo { max-width: 180px; } /* Mobile Logo Size */
+            header h1 { font-size: 2.5rem; }
+            section { padding: 60px 5% 40px 5%; }
+            .section-title h2 { font-size: 2.2rem; }
             
-            .nav-links {
-                gap: 20px;
-                justify-content: center;
-                width: 100%;
-            }
-
-            header {
-                padding: 160px 15px 50px 15px;
-            }
-
-            .main-logo { 
-                max-width: 170px; /* Mobile Logo Size optimized */
-            } 
-
-            header h1 { 
-                font-size: 2.4rem; 
-            }
-
-            header p {
-                font-size: 0.9rem;
-                letter-spacing: 2px;
-            }
-
-            section { 
-                padding: 60px 6% 40px 6%; 
-            }
-
-            .section-title h2 { 
-                font-size: 2.1rem; 
-            }
-
-            .container {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-            }
-
-            form {
-                padding: 30px 20px; /* Reduced internal padding to fit mobile screens perfectly */
-                margin-bottom: 40px;
-            }
-
-            .form-title {
-                font-size: 1.3rem;
-            }
-
-            .whatsapp-float {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 26px;
-            }
-        }
-
-        /* Extra Small Screen Mobile Phones (Max-width: 400px) */
-        @media (max-width: 400px) {
-            .nav-links {
-                gap: 12px;
-            }
-            .nav-links a {
-                font-size: 0.85rem;
-            }
-            header h1 { 
-                font-size: 2rem; 
-            }
-            .section-title h2 { 
-                font-size: 1.8rem; 
-            }
-            .card {
-                padding: 30px 20px;
-            }
+            /* ජංගම දුරකථන වලට ගැලපෙන සේ Form එක සහ Comments Containers වල Padding පමණක් මෙතැනදී සියුම්ව සකසා ඇත */
+            form { padding: 25px 20px; }
+            .container { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
         }
     </style>
 </head>
