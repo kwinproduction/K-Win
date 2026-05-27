@@ -161,16 +161,15 @@
                         <input type="date" id="bookDate" required onchange="handleDateChange()">
                     </div>
                     <div>
-                        <label>Available Time</label>
-                        <select id="bookTime" required disabled>
-                            <option value="" disabled selected>Select Date First</option>
-                             <option value="08:00">08:00 AM</option>
-                                    <option value="08:00">08:00 AM</option>
-                                    <option value="09:30">09:30 AM</option>
-                                    <option value="12:00">12:00 PM</option>
-                                    <option value="14:30">02:30 PM</option>
-                                    <option value="16:00">04:00 PM</option>
-                        </select>
+                       <select id="bookTime" required disabled>
+    <option value="" disabled selected>Select Date First</option>
+
+    <option value="08:00">08:00 AM</option>
+    <option value="09:30">09:30 AM</option>
+    <option value="12:00">12:00 PM</option>
+    <option value="14:30">02:30 PM</option>
+    <option value="16:00">04:00 PM</option>
+</select>
                     </div>
                 </div>
 
@@ -234,65 +233,83 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
 
     bookTimeSelect.disabled = true;
 
-    // Google Sheet එකෙන් දැනට බුක් වෙලා තියෙන slots ඉල්ලනවා
-    fetch(`${GOOGLE_SCRIPT_URL}?action=checkSlots`)
+    // cache prevent
+    const uniqueURL =
+        `${GOOGLE_SCRIPT_URL}?action=checkSlots&t=${new Date().getTime()}`;
+
+    // Google Sheet එකෙන් slots ගන්නවා
+    fetch(uniqueURL)
 
     .then(response => response.json())
 
     .then(savedBookings => {
 
-        // සියලුම available time slots
-      const allSlots = [
-    "08:00",
-    "09:30",
-    "12:00",
-    "14:30",
-    "16:00"
-];
-     
+        console.log("Saved Bookings:", savedBookings);
 
-        // Default select option
+        // සියලු slots
+        const allSlots = [
+            "08:00",
+            "09:30",
+            "12:00",
+            "14:30",
+            "16:00"
+        ];
+
+        // display labels
+        const displaySlots = {
+            "08:00": "08:00 AM",
+            "09:30": "09:30 AM",
+            "12:00": "12:00 PM",
+            "14:30": "02:30 PM",
+            "16:00": "04:00 PM"
+        };
+
+        // default option
         let selectHTML =
             '<option value="" disabled selected>Select Time</option>';
 
-        // හැම slot එකක්ම check කරනවා
+        // check every slot
         allSlots.forEach(slot => {
 
-            // 🔥 එකම දවසේ + එකම වෙලාවේ booking එකක් තියෙනවාද බලනවා
-            // Service එක නොබලා block කරනවා
+            // same date + same time booked?
             const isBooked = savedBookings.some(b => {
 
-                return (
-                    b.date.toString().trim() === dateString &&
-                    b.time.toString().trim() === slot
-                );
+                const sheetDate =
+                    String(b.date).trim();
 
+                const sheetTime =
+                    String(b.time).trim();
+
+                return (
+                    sheetDate === dateString &&
+                    sheetTime === slot
+                );
             });
 
-            // Booked slot
+            // booked slot
             if (isBooked) {
 
                 selectHTML += `
                     <option value="${slot}" disabled>
-                        ${slot} (Already Booked 🚫)
+                        ${displaySlots[slot]} (Already Booked 🚫)
                     </option>
                 `;
 
             } else {
 
-                // Available slot
+                // available slot
                 selectHTML += `
                     <option value="${slot}">
-                        ${slot}
+                        ${displaySlots[slot]}
                     </option>
                 `;
             }
         });
 
-        // Final HTML set
+        // update select
         bookTimeSelect.innerHTML = selectHTML;
 
-        // Enable select box
+        // enable select
         bookTimeSelect.disabled = false;
     })
 
