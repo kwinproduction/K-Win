@@ -282,7 +282,7 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
                 );
             });
 
-           if (isBooked) {
+          if (isBooked) {
 
     html += `
         <option value="${slot}" disabled>
@@ -290,14 +290,15 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
         </option>
     `;
 
-            } else {
+} else {
 
-                html += `
-                    <option value="${slot}">
-                        ${displaySlots[slot]}
-                    </option>
-                `;
-            }
+    html += `
+        <option value="${slot}">
+            ${displaySlots[slot]}
+        </option>
+    `;
+}
+          
         });
 
         bookTimeSelect.innerHTML = html;
