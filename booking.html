@@ -195,8 +195,8 @@
     </footer>
 
     <script>
-        // ⚠️ [වැදගත්] ඔයා පියවර 1 දී ගත්ත Google Web App URL එක මෙතනට දාන්න මචන්
-        const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL";
+        // 🚀 ඔයාගේ Google Script Web App URL එක මෙතන තියෙන්නේ මචන්
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpr03z5kl6pOZFbVwFcTN3-ZqyjW77-tf0ZFmtUXlMvn7ZOBY1uaQt1y08uQvrZypypA/exec";
 
         const bookingModal = document.getElementById("bookingModal");
         const googleSheetBookingForm = document.getElementById("googleSheetBookingForm");
@@ -230,20 +230,14 @@
             bookTimeSelect.innerHTML = '<option value="" disabled selected>Loading Slots... ⏳</option>';
             bookTimeSelect.disabled = true;
 
-            if(GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzpr03z5kl6pOZFbVwFcTN3-ZqyjW77-tf0ZFmtUXlMvn7ZOBY1uaQt1y08uQvrZypypA/exec") {
-                alert("කරුණාකර Google Script URL එක Code එකට ඇතුලත් කරන්න!");
-                return;
-            }
-
             // Google Sheet එකෙන් දැනට බුක් වෙලා තියෙන slots ඉල්ලනවා
-            fetch(`${https://script.google.com/macros/s/AKfycbzpr03z5kl6pOZFbVwFcTN3-ZqyjW77-tf0ZFmtUXlMvn7ZOBY1uaQt1y08uQvrZypypA/exec}?action=checkSlots`)
+            fetch(`${GOOGLE_SCRIPT_URL}?action=checkSlots`)
             .then(response => response.json())
             .then(savedBookings => {
                 const allSlots = ["08:00 AM", "09:30 AM", "12:00 PM", "02:30 PM", "04:00 PM"];
                 let selectHTML = '<option value="" disabled selected>Select Time</option>';
                 
                 allSlots.forEach(slot => {
-                    // ශීට් එකේ එකම දවස සහ වෙලාව තියෙනවද බලනවා
                     const isBooked = savedBookings.some(b => b.date === dateString && b.time === slot);
                     
                     if (isBooked) {
@@ -301,7 +295,6 @@
             const name = document.getElementById("bookName").value;
             const email = document.getElementById("bookEmail").value;
             
-            // Background එකෙන් Google Sheet එකට ඩේටා යවනවා
             const formData = new URLSearchParams();
             formData.append("ref", ref);
             formData.append("service", service);
@@ -317,7 +310,6 @@
             .then(res => res.json())
             .then(data => {
                 if(data.result === "success") {
-                    // ඩේටා ශීට් එකට වැටුනට පස්සේ WhatsApp එකට යවනවා
                     const whatsappNumber = "94707140731";
                     const message = `🔴 *NEW BOOKING ORDER* 🔴\n\n` +
                                     `🆔 *Reference:* ${ref}\n` +
