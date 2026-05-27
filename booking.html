@@ -164,11 +164,12 @@
                         <label>Available Time</label>
                         <select id="bookTime" required disabled>
                             <option value="" disabled selected>Select Date First</option>
-                            <option value="08:00 AM">08:00 AM</option>
-                            <option value="09:30 AM">09:30 AM</option>
-                            <option value="12:00 PM">12:00 PM</option>
-                            <option value="02:30 PM">02:30 PM</option>
-                            <option value="04:00 PM">04:00 PM</option>
+                             <option value="08:00">08:00 AM</option>
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="09:30">09:30 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="14:30">02:30 PM</option>
+                                    <option value="16:00">04:00 PM</option>
                         </select>
                     </div>
                 </div>
@@ -241,13 +242,14 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
     .then(savedBookings => {
 
         // සියලුම available time slots
-        const allSlots = [
-            "08:00 AM",
-            "09:30 AM",
-            "12:00 PM",
-            "02:30 PM",
-            "04:00 PM"
-        ];
+      const allSlots = [
+    "08:00",
+    "09:30",
+    "12:00",
+    "14:30",
+    "16:00"
+];
+     
 
         // Default select option
         let selectHTML =
