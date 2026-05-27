@@ -224,38 +224,56 @@
                 fetchBookedSlotsFromGoogleSheet(bookDateInput.value);
             }
         }
+// GOOGLE SHEET එකෙන් LIVE ඩේටා කියවලා TIME SLOT BALANCE කරන කොටස
+function fetchBookedSlotsFromGoogleSheet(dateString) {
 
-        // GOOGLE SHEET එකෙන් LIVE ඩේටා කියවලා TIME SLOT BALANCE කරන කොටස
-        function fetchBookedSlotsFromGoogleSheet(dateString) {
-            bookTimeSelect.innerHTML = '<option value="" disabled selected>Loading Slots... ⏳</option>';
-            bookTimeSelect.disabled = true;
+    bookTimeSelect.innerHTML = '<option value="" disabled selected>Loading Slots... ⏳</option>';
+    bookTimeSelect.disabled = true;
 
-            // Google Sheet එකෙන් දැනට බුක් වෙලා තියෙන slots ඉල්ලනවා
-            fetch(`${GOOGLE_SCRIPT_URL}?action=checkSlots`)
-            .then(response => response.json())
-            .then(savedBookings => {
-                const allSlots = ["08:00 AM", "09:30 AM", "12:00 PM", "02:30 PM", "04:00 PM"];
-                let selectHTML = '<option value="" disabled selected>Select Time</option>';
-                
-                allSlots.forEach(slot => {
-                    // 🔥 මෙතනදී සර්විස් එක නොබලා දවස සහ වෙලාව විතරක් සමානද කියලා චෙක් කරලා බ්ලොක් කරනවා
-                    const isBooked = savedBookings.some(b => b.date === dateString && b.time === slot);
-                    
-                    if (isBooked) {
-                        selectHTML += `<option value="${slot}" disabled>${slot} (Already Booked 🚫)</option>`;
-                    } else {
-                        selectHTML += `<option value="${slot}">${slot}</option>`;
-                    }
-                });
+    // HTML date input format: 2026-05-27
+    // Google Sheet format: 27/05/2026
+    const formattedSelectedDate = dateString.split("-").reverse().join("/");
 
-                bookTimeSelect.innerHTML = selectHTML;
-                bookTimeSelect.disabled = false;
-            })
-            .catch(error => {
-                console.error("Error fetching slots:", error);
-                bookTimeSelect.innerHTML = '<option value="" disabled selected>Error loading slots</option>';
-            });
-        }
+    // Google Sheet එකෙන් දැනට බුක් වෙලා තියෙන slots ඉල්ලනවා
+    fetch(`${GOOGLE_SCRIPT_URL}?action=checkSlots`)
+    .then(response => response.json())
+    .then(savedBookings => {
+
+        const allSlots = [
+            "08:00 AM",
+            "09:30 AM",
+            "12:00 PM",
+            "02:30 PM",
+            "04:00 PM"
+        ];
+
+        let selectHTML = '<option value="" disabled selected>Select Time</option>';
+
+        allSlots.forEach(slot => {
+
+            // 🔥 දවස + වෙලාව match උනොත්
+            // අනිත් services වලටත් block වෙනවා
+            const isBooked = savedBookings.some(
+                b =>
+                    b.date === formattedSelectedDate &&
+                    b.time === slot
+            );
+
+            if (isBooked) {
+                selectHTML += `<option value="${slot}" disabled>${slot} (Already Booked 🚫)</option>`;
+            } else {
+                selectHTML += `<option value="${slot}">${slot}</option>`;
+            }
+        });
+
+        bookTimeSelect.innerHTML = selectHTML;
+        bookTimeSelect.disabled = false;
+    })
+    .catch(error => {
+        console.error("Error fetching slots:", error);
+        bookTimeSelect.innerHTML = '<option value="" disabled selected>Error loading slots</option>';
+    });
+}
 
         function openBooking(serviceName, servicePrefix) {
             const randomNumber = Math.floor(1000 + Math.random() * 9000);
