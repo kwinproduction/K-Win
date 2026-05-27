@@ -3,35 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K-WIN</title>
+<title>K-WIN Productions</title>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<!-- 🔥 FAVICON (Browser Logo) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<rect width='100' height='100' rx='20' fill='%230a0a0a'/>
+<text x='50%' y='65%' font-size='55' font-family='Arial'
+text-anchor='middle' fill='white'>K<tspan fill='%23ff1a1a'>W</tspan></text>
+</svg>">
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+
+/* ================= GLOBAL ================= */
 body{
-    font-family: Arial;
+    margin:0;
+    font-family:Arial;
     background:#0a0a0a;
     color:white;
-    margin:0;
 }
 
-/* HEADER */
-.header{
-    text-align:center;
-    padding:40px 20px;
+/* ================= NAV ================= */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 8%;
+    background:#0a0a0a;
+    border-bottom:1px solid #222;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
-.header h1{
-    margin:0;
+nav img{
+    height:45px;
+    border-radius:8px;
 }
 
-.header span{
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+nav a:hover{
     color:#ff1a1a;
 }
 
-/* SERVICE GRID */
+/* ================= HERO ================= */
+.hero{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.hero h1 span{
+    color:#ff1a1a;
+}
+
+/* ================= SERVICES ================= */
 .container{
-    max-width:1000px;
+    max-width:1100px;
     margin:auto;
     padding:20px;
     display:grid;
@@ -47,25 +82,17 @@ body{
     border:1px solid #222;
 }
 
-.card h3{
-    margin-bottom:10px;
-}
-
 button{
     background:#ff1a1a;
     border:none;
-    padding:10px 20px;
+    padding:10px 18px;
     color:white;
     border-radius:8px;
     cursor:pointer;
     font-weight:bold;
 }
 
-button:hover{
-    opacity:0.8;
-}
-
-/* MODAL */
+/* ================= MODAL ================= */
 .modal{
     display:none;
     position:fixed;
@@ -93,63 +120,59 @@ input,select{
     border-radius:6px;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 footer{
     background:#050505;
-    padding:40px 20px;
     text-align:center;
+    padding:40px;
     border-top:1px solid #222;
     margin-top:40px;
-}
-
-footer h2{
-    margin-bottom:10px;
 }
 
 footer span{
     color:#ff1a1a;
 }
 
-.social{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin:20px 0;
-}
-
 .social a{
-    width:40px;
-    height:40px;
-    background:#141414;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
     color:#aaa;
+    margin:0 10px;
     text-decoration:none;
 }
 
 .social a:hover{
-    background:#ff1a1a;
-    color:white;
-    transform:scale(1.1);
-    transition:0.3s;
+    color:#ff1a1a;
 }
 
 small{
     color:#666;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h1>K-WIN <span>Booking System</span></h1>
-    <p>Book Any Service Easily</p>
+<!-- ================= NAV ================= -->
+<nav>
+    <a href="#">
+        <img src="logo.png" alt="K-WIN Logo">
+    </a>
+
+    <div>
+        <a href="./">Home</a>
+        <a href="gallery">Gallery</a>
+        <a href="booking">Booking</a>
+        <a href="about">About </a>
+    </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+    <h1>Kind Win </span></h1>
+    <p>Book Any Digital Service Easily</p>
 </div>
 
-<!-- SERVICES -->
+<!-- ================= SERVICES ================= -->
 <div class="container">
 
     <div class="card">
@@ -168,7 +191,7 @@ small{
     </div>
 
     <div class="card">
-        <h3>Campaigns</h3>
+        <h3>All Campaigns</h3>
         <button onclick="openModal('All Campaigns')">Book Now</button>
     </div>
 
@@ -179,7 +202,7 @@ small{
 
 </div>
 
-<!-- MODAL -->
+<!-- ================= MODAL ================= -->
 <div class="modal" id="modal">
 <div class="modal-box">
 
@@ -200,16 +223,12 @@ small{
 </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 <footer>
-
-<h2>K-WIN <span>Productions</span></h2>
-<p>The Trademark of Kind Win</p>
-
 <div class="social">
-    <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://youtube.com/@kindwin_18?si=-2pV4FCG4Lh8Q9S1" target="_blank"><i class="fab fa-youtube"></i></a>
-    <a href="https://wa.me/94707140731" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://facebook.com">Facebook</a>
+    <a href="https://youtube.com">YouTube</a>
+    <a href="https://wa.me/94707140731">WhatsApp</a>
 </div>
 
 <small>© 2026 K-WIN Productions. All Rights Reserved.</small>
@@ -223,16 +242,19 @@ const URL = "https://script.google.com/macros/s/AKfycbzc5JueQoCCw6i6DmRqLV5V8sFt
 
 let selectedService = "";
 
+// OPEN MODAL
 function openModal(service){
     selectedService = service;
     document.getElementById("title").innerText = "Book: " + service;
     document.getElementById("modal").style.display = "flex";
 }
 
+// CLOSE MODAL
 function closeModal(){
     document.getElementById("modal").style.display = "none";
 }
 
+// LOAD SLOTS
 async function loadSlots(){
 
     const date = document.getElementById("date").value;
@@ -249,9 +271,7 @@ async function loadSlots(){
     let html = "";
 
     slots.forEach(s=>{
-        const booked = data.booked.includes(s);
-
-        html += booked
+        html += data.booked.includes(s)
         ? `<option disabled>${s} - Booked</option>`
         : `<option value="${s}">${s}</option>`;
     });
@@ -260,14 +280,15 @@ async function loadSlots(){
     timeSelect.disabled = false;
 }
 
+// BOOK NOW
 async function bookNow(){
 
     const payload = {
         service: selectedService,
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        date: document.getElementById("date").value,
-        time: document.getElementById("time").value
+        name: name.value,
+        email: email.value,
+        date: date.value,
+        time: time.value
     };
 
     const res = await fetch(URL,{
@@ -295,7 +316,7 @@ Time: ${payload.time}`;
         alert("Slot already booked!");
         loadSlots();
     } else {
-        alert("Error occurred!");
+        alert("Error!");
     }
 }
 
