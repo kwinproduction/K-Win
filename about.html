@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-WIN </title>
+    <title>K-WIN Productions - Booking</title>
     
     <!-- Dynamic SVG Web Icon (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
@@ -97,7 +97,7 @@
 
         /* HERO HEADER SECTION */
         header {
-            min-height: 60vh;
+            min-height: 55vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -142,93 +142,117 @@
             text-transform: uppercase;
         }
 
-        /* CONTENT SECTIONS */
-        .content-container {
+        /* ================= SERVICES CONTAINER ================= */
+        .container {
             max-width: 1100px;
             margin: auto;
             padding: 60px 20px;
-        }
-
-        /* MISSION BLOCK */
-        .info-block {
-            background: var(--dark-card);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--primary-red);
-            padding: 40px;
-            border-radius: 0 20px 20px 0;
-            margin-bottom: 60px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .info-block h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .info-block h2 span {
-            color: var(--primary-red);
-        }
-
-        .info-block p {
-            color: #dddddd;
-            font-size: 1.05rem;
-            font-weight: 300;
-        }
-
-        /* CORE VALUES SECTION */
-        .values-section h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.4rem;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .values-section h2 span {
-            color: var(--primary-red);
-        }
-
-        .values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
         }
 
-        .value-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .card {
+            background: var(--dark-card);
             padding: 35px 25px;
             border-radius: 18px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .value-card:hover {
+        .card:hover {
             transform: translateY(-5px);
             border-color: rgba(255, 26, 26, 0.3);
             background: rgba(255, 26, 26, 0.02);
             box-shadow: 0 10px 25px rgba(255, 26, 26, 0.05);
         }
 
-        .value-card i {
-            font-size: 2.5rem;
-            color: var(--primary-red);
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(255, 26, 26, 0.3);
-        }
-
-        .value-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            color: #fff;
+        .card h3 {
             font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #fff;
         }
 
-        .value-card p {
+        button {
+            background: var(--primary-red);
+            border: none;
+            padding: 12px 24px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 300;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 26, 26, 0.3);
+        }
+
+        button:hover {
+            background: #e60000;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 26, 26, 0.5);
+        }
+
+        /* ================= MODAL ================= */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-box {
+            background: #111;
+            padding: 35px;
+            border-radius: 18px;
+            width: 400px;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        .modal-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
         }
 
         /* FLOATING WHATSAPP BUTTON */
@@ -262,6 +286,7 @@
             padding: 60px 20px;
             background: #050505;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 40px;
         }
 
         .social-icons {
@@ -310,9 +335,7 @@
             nav { padding: 15px 5%; flex-direction: column; gap: 12px; text-align: center; }
             header { padding-top: 180px; min-height: auto; }
             header h1 { font-size: 2.8rem; }
-            .info-block { padding: 25px; border-radius: 12px; }
-            .info-block h2 { font-size: 1.8rem; }
-            .values-section h2 { font-size: 1.8rem; }
+            .container { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -326,8 +349,8 @@
         <div class="nav-links">
             <a href="./">Home</a>
             <a href="gallery">Gallery</a>
-            <a href="booking">Booking</a>
-            <a href="about" class="active">About</a>
+            <a href="booking" class="active">Booking</a>
+            <a href="about">About</a>
         </div>
     </nav>
 
@@ -336,48 +359,62 @@
         <div>
             <img src="logo.jpeg" class="main-logo" alt="K-WIN Logo">
         </div>
-        <h1><span class="Kind text"> Kind </span><span class="w-text"> W</span><span class="in-text">in</span></h1>
-        <p>The Trademark of Kind Win</p>
+        <h1><span>Kind</span> Win</h1>
+        <p>Book Any Digital Service Easily</p>
     </header>
 
-    <!-- CONTENT CONTAINER -->
-    <main class="content-container">
-        
-        <!-- BLOCK 1: MISSION & COMMITMENT -->
-        <section class="info-block">
-            <h2>Our <span>Commitment</span></h2>
-            <p>Your success is at the center of everything we do. We are committed to providing smart, reliable, and high-quality digital solutions designed to help businesses grow and stand out in a competitive world. By combining creativity, strategy, and modern technology, we create services that not only solve problems but also create new opportunities for growth.</p>
-        </section>
+    <!-- SERVICES CONTAINER -->
+    <main class="container">
 
-        <!-- BLOCK 2: CORE VALUES / PHILOSOPHY -->
-        <section class="values-section">
-            <h2>Our <span>Philosophy</span></h2>
-            
-            <div class="values-grid">
-                <!-- Value 1: Kindness -->
-                <div class="value-card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Kindness</h3>
-                    <p>At Kind Win, our philosophy is built around one simple value: Kindness. We believe success is not only about reaching goals; it is also about the way we help people reach them.</p>
-                </div>
+        <div class="card">
+            <h3>Social Media</h3>
+            <button onclick="openModal('Social Media')">Book Now</button>
+        </div>
 
-                <!-- Value 2: Strategy -->
-                <div class="value-card">
-                    <i class="fas fa-chess"></i>
-                    <h3>Strategy</h3>
-                    <p>Our mission is to guide you toward your achievements with dedication, respect, and a kind, structured approach in every single step of the business journey.</p>
-                </div>
+        <div class="card">
+            <h3>Data Recovery</h3>
+            <button onclick="openModal('Data Recovery')">Book Now</button>
+        </div>
 
-                <!-- Value 3: Impact -->
-                <div class="value-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Real Impact</h3>
-                    <p>We genuinely value trust, long-term premium professional relationships, and delivering results that create a permanent, positive impact on your brand.</p>
-                </div>
-            </div>
-        </section>
+        <div class="card">
+            <h3>Audio Editing</h3>
+            <button onclick="openModal('Audio Editing')">Book Now</button>
+        </div>
+
+        <div class="card">
+            <h3>All Campaigns</h3>
+            <button onclick="openModal('All Campaigns')">Book Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Business Promotion</h3>
+            <button onclick="openModal('Business Promotion')">Book Now</button>
+        </div>
 
     </main>
+
+    <!-- MODAL POPUP -->
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <h3 id="title">Book Service</h3>
+
+            <input id="name" placeholder="Name">
+            <input id="email" placeholder="Email">
+            <input type="date" id="date" onchange="loadSlots()">
+
+            <select id="time" disabled>
+                <option>Select Date First</option>
+            </select>
+
+            <!-- NEW FIELD: REGARDING WHAT / DETAILS -->
+            <input id="details" placeholder="Regarding What? (eg: Song Editing, Page Promo)">
+
+            <div class="modal-buttons">
+                <button onclick="bookNow()">Confirm Booking</button>
+                <button onclick="closeModal()" style="background:#444; box-shadow: none;">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- FLOATING WHATSAPP BUTTON -->
     <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank" aria-label="Contact on WhatsApp">
@@ -394,6 +431,106 @@
         <p>© 2026 K-WIN Productions</p>
         <p>Kurunegala, Sri Lanka</p>
     </footer>
+
+<script>
+// 🔥 GOOGLE SCRIPT URL
+const URL = "https://script.google.com/macros/s/AKfycbzc5JueQoCCw6i6DmRqLV5V8sFtP2q1FlFYVWgAkiyyY2dE_3u7tdta5g-RB6RUwD5tjQ/exec";
+
+let selectedService = "";
+
+// OPEN MODAL
+function openModal(service){
+    selectedService = service;
+    document.getElementById("title").innerText = "Book: " + service;
+    document.getElementById("modal").style.display = "flex";
+}
+
+// CLOSE MODAL
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("details").value = ""; // Reset details field
+}
+
+// LOAD SLOTS
+async function loadSlots(){
+    const date = document.getElementById("date").value;
+    const timeSelect = document.getElementById("time");
+
+    timeSelect.disabled = true;
+    timeSelect.innerHTML = "Loading...";
+
+    const res = await fetch(URL + "?action=slots&date=" + date);
+    const data = await res.json();
+
+    const slots = ["08:00","09:30","12:00","14:30","16:00"];
+
+    let html = "";
+
+    slots.forEach(s=>{
+        html += data.booked.includes(s)
+        ? `<option disabled>${s} - Booked</option>`
+        : `<option value="${s}">${s}</option>`;
+    });
+
+    timeSelect.innerHTML = html;
+    timeSelect.disabled = false;
+}
+
+// BOOK NOW
+async function bookNow(){
+    const nameVal = document.getElementById("name").value;
+    const emailVal = document.getElementById("email").value;
+    const dateVal = document.getElementById("date").value;
+    const timeVal = document.getElementById("time").value;
+    const detailsVal = document.getElementById("details").value || "Not Specified";
+
+    const payload = {
+        service: selectedService,
+        name: nameVal,
+        email: emailVal,
+        date: dateVal,
+        time: timeVal,
+        details: detailsVal
+    };
+
+    const res = await fetch(URL,{
+        method:"POST",
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if(data.result === "success"){
+        // 📌 Generating a Premium Unique Reference Number (e.g., KW-B84A2)
+        const refNum = "KW-" + Math.random().toString(36).substring(2, 7).toUpperCase();
+
+        // 🌟 Styled WhatsApp Message with the New "Regarding / Details" section
+        const msg = 
+`🔥 *NEW BOOKING CONFIRMED* 🔥
+
+📌 *Ref No:* ${refNum}
+🛠️ *Service:* ${payload.service}
+📝 *Regarding:* ${payload.details}
+👤 *Client Name:* ${payload.name}
+📅 *Date:* ${payload.date}
+⏰ *Time Slot:* ${payload.time}
+
+----------------------------------
+Thank you for choosing K-WIN Productions!`;
+
+        window.open("https://wa.me/94707140731?text=" + encodeURIComponent(msg));
+
+        alert("Booking Successful ✔️\nYour Reference Number: " + refNum + "\nRegarding: " + payload.details);
+        closeModal();
+
+    } else if(data.result === "taken"){
+        alert("Slot already booked!");
+        loadSlots();
+    } else {
+        alert("Error!");
+    }
+}
+</script>
 
 </body>
 </html>
