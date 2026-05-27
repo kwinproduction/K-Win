@@ -282,13 +282,13 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
                 );
             });
 
-            if (isBooked) {
+           if (isBooked) {
 
-                html += `
-                    <option disabled>
-                        ${displaySlots[slot]} - Booked
-                    </option>
-                `;
+    html += `
+        <option value="${slot}" disabled>
+            ${displaySlots[slot]} - Booked
+        </option>
+    `;
 
             } else {
 
@@ -471,6 +471,5 @@ googleSheetBookingForm.addEventListener(
     });
 });
 </script>
-    </script>
 </body>
 </html>
