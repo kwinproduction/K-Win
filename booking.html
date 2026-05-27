@@ -6,7 +6,7 @@
     <title>K-WIN</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=700;800;900&family=Poppins:wght=300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -194,7 +194,7 @@
     </footer>
 
 <script>
-// PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
+// 🚨 මෙතනට ඔයාගේ NEW DEPLOYMENT WEB APP URL (EXEC) එක පේස්ට් කරන්න 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqwDkrHSq31xHFGCXqb2XIV63H-5_Cw8QioM8Gt_Jeyq55anzbqZ6v75gVgYUd7myJLQ/exec";
 
 const bookingModal = document.getElementById("bookingModal");
@@ -208,13 +208,16 @@ function setMinDate() {
     bookDateInput.setAttribute('min', today);
 }
 
+// 🚫 සෙනසුරාදා දින නිවැරදිව බ්ලොක් කරන නව ශ්‍රිතය (Timezone Bug Free)
 function handleDateChange() {
-    const selectedDate = new Date(bookDateInput.value);
-    const day = selectedDate.getDay();
+    if (!bookDateInput.value) return;
 
-    // Saturday Close Rule
-    if (day === 6) {
-        alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත.");
+    const dateParts = bookDateInput.value.split('-'); 
+    const selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    const day = selectedDate.getDay(); 
+
+    if (day === 6) { // 6 = සෙනසුරාදා
+        alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත. කරුණාකර වෙනත් දිනයක් තෝරන්න.");
         bookDateInput.value = "";
         bookTimeSelect.disabled = true;
         return;
@@ -225,12 +228,10 @@ function handleDateChange() {
     }
 }
 
-// FETCH & FILTER BOOKED SLOTS
 function fetchBookedSlotsFromGoogleSheet(dateString) {
     bookTimeSelect.innerHTML = '<option disabled selected>Loading Slots...</option>';
     bookTimeSelect.disabled = true;
 
-    // Optimized: Pass the selected date directly as a query parameter
     const uniqueURL = `${GOOGLE_SCRIPT_URL}?action=checkSlots&date=${dateString}&t=${Date.now()}`;
 
     fetch(uniqueURL)
@@ -248,7 +249,6 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
         let html = '<option value="" disabled selected>Select Time</option>';
 
         allSlots.forEach(slot => {
-            // Checks if backend returned this slot string as booked
             const isBooked = bookedSlots.includes(slot);
 
             if (isBooked) {
@@ -267,7 +267,6 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
     });
 }
 
-// OPEN MODAL
 function openBooking(serviceName, servicePrefix) {
     const randomNumber = Math.floor(1000 + Math.random() * 9000);
     const referenceNumber = `KWIN-${servicePrefix}-${randomNumber}`;
@@ -281,7 +280,6 @@ function openBooking(serviceName, servicePrefix) {
     bookingModal.style.display = "flex";
 }
 
-// CLOSE MODAL
 function closeBooking() {
     bookingModal.style.display = "none";
     googleSheetBookingForm.reset();
@@ -289,14 +287,12 @@ function closeBooking() {
     submitBtn.innerText = "Confirm Booking via WhatsApp";
 }
 
-// OUTSIDE CLICK CLOSE
 window.onclick = function(event) {
     if (event.target == bookingModal) {
         closeBooking();
     }
 }
 
-// FORM SUBMIT
 googleSheetBookingForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -329,11 +325,15 @@ googleSheetBookingForm.addEventListener("submit", function(e) {
             const message = `🔴 NEW BOOKING 🔴\n\n🆔 Reference: ${ref}\n\n💼 Service: ${service}\n\n📅 Date: ${date}\n\n🕒 Time: ${time}\n\n👤 Name: ${name}\n\n✉️ Email: ${email}`;
 
             const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-            
             window.open(whatsappURL, "_blank");
             closeBooking();
+        } else if (data.result === "taken") {
+            alert("කණගාටුයි! මෙම වෙලාව වෙනත් අයෙකු විසින් වෙන් කරගෙන ඇත. කරුණාකර වෙනත් වෙලාවක් තෝරන්න.");
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Confirm Booking via WhatsApp";
+            fetchBookedSlotsFromGoogleSheet(date); 
         } else {
-            alert("Booking Failed!");
+            alert("Booking Failed: " + data.message);
             submitBtn.disabled = false;
             submitBtn.innerText = "Confirm Booking via WhatsApp";
         }
