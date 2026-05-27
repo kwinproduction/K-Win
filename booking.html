@@ -195,58 +195,65 @@
     </footer>
 
     <script>
-        // 🚀 ඔයා දුන්න අලුත්ම Google Script Web App URL එක මෙතනට දැම්මා මචන්
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqwDkrHSq31xHFGCXqb2XIV63H-5_Cw8QioM8Gt_Jeyq55anzbqZ6v75gVgYUd7myJLQ/exec";
 
-        const bookingModal = document.getElementById("bookingModal");
-        const googleSheetBookingForm = document.getElementById("googleSheetBookingForm");
-        const bookDateInput = document.getElementById("bookDate");
-        const bookTimeSelect = document.getElementById("bookTime");
-        const submitBtn = document.getElementById("submitBtn");
+const bookingModal = document.getElementById("bookingModal");
+const googleSheetBookingForm = document.getElementById("googleSheetBookingForm");
+const bookDateInput = document.getElementById("bookDate");
+const bookTimeSelect = document.getElementById("bookTime");
+const submitBtn = document.getElementById("submitBtn");
 
-        function setMinDate() {
-            const today = new Date().toISOString().split('T')[0];
-            bookDateInput.setAttribute('min', today);
-        }
+function setMinDate() {
+    const today = new Date().toISOString().split('T')[0];
+    bookDateInput.setAttribute('min', today);
+}
 
-        function handleDateChange() {
-            const selectedDate = new Date(bookDateInput.value);
-            const day = selectedDate.getUTCDay();
-            
-            if (day === 6) { // 6 = Saturday
-                alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත. වෙනත් දිනයක් තෝරන්න!");
-                bookDateInput.value = "";
-                bookTimeSelect.disabled = true;
-                return;
-            }
+function handleDateChange() {
 
-            if (bookDateInput.value) {
-                fetchBookedSlotsFromGoogleSheet(bookDateInput.value);
-            }
-        }
-// GOOGLE SHEET එකෙන් LIVE ඩේටා කියවලා TIME SLOT BALANCE කරන කොටස
+    const selectedDate = new Date(bookDateInput.value);
+
+    const day = selectedDate.getDay();
+
+    // Saturday close
+    if (day === 6) {
+
+        alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත.");
+
+        bookDateInput.value = "";
+
+        bookTimeSelect.disabled = true;
+
+        return;
+    }
+
+    if (bookDateInput.value) {
+
+        fetchBookedSlotsFromGoogleSheet(
+            bookDateInput.value
+        );
+    }
+}
+
+
+// FETCH BOOKED SLOTS
 function fetchBookedSlotsFromGoogleSheet(dateString) {
 
-    // Loading state
     bookTimeSelect.innerHTML =
-        '<option value="" disabled selected>Loading Slots... ⏳</option>';
+        '<option disabled selected>Loading Slots...</option>';
 
     bookTimeSelect.disabled = true;
 
-    // cache prevent
     const uniqueURL =
-        `${GOOGLE_SCRIPT_URL}?action=checkSlots&t=${new Date().getTime()}`;
+        `${GOOGLE_SCRIPT_URL}?action=checkSlots&t=${Date.now()}`;
 
-    // Google Sheet එකෙන් slots ගන්නවා
     fetch(uniqueURL)
 
     .then(response => response.json())
 
     .then(savedBookings => {
 
-        console.log("Saved Bookings:", savedBookings);
+        console.log(savedBookings);
 
-        // සියලු slots
         const allSlots = [
             "08:00",
             "09:30",
@@ -255,7 +262,6 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
             "16:00"
         ];
 
-        // display labels
         const displaySlots = {
             "08:00": "08:00 AM",
             "09:30": "09:30 AM",
@@ -264,41 +270,30 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
             "16:00": "04:00 PM"
         };
 
-        // default option
-        let selectHTML =
+        let html =
             '<option value="" disabled selected>Select Time</option>';
 
-        // check every slot
         allSlots.forEach(slot => {
 
-            // same date + same time booked?
             const isBooked = savedBookings.some(b => {
 
-                const sheetDate =
-                    String(b.date).trim();
-
-                const sheetTime =
-                    String(b.time).trim();
-
                 return (
-                    sheetDate === dateString &&
-                    sheetTime === slot
+                    String(b.date).trim() === dateString &&
+                    String(b.time).trim() === slot
                 );
             });
 
-            // booked slot
             if (isBooked) {
 
-                selectHTML += `
-                    <option value="${slot}" disabled>
-                        ${displaySlots[slot]} (Already Booked 🚫)
+                html += `
+                    <option disabled>
+                        ${displaySlots[slot]} - Booked
                     </option>
                 `;
 
             } else {
 
-                // available slot
-                selectHTML += `
+                html += `
                     <option value="${slot}">
                         ${displaySlots[slot]}
                     </option>
@@ -306,104 +301,177 @@ function fetchBookedSlotsFromGoogleSheet(dateString) {
             }
         });
 
-        // update select
-        bookTimeSelect.innerHTML = selectHTML;
+        bookTimeSelect.innerHTML = html;
 
-        // enable select
         bookTimeSelect.disabled = false;
     })
 
     .catch(error => {
 
-        console.error("Error fetching slots:", error);
+        console.error(error);
 
         bookTimeSelect.innerHTML =
-            '<option value="" disabled selected>Error loading slots</option>';
+            '<option disabled selected>Error Loading</option>';
     });
 }
 
-        function openBooking(serviceName, servicePrefix) {
-            const randomNumber = Math.floor(1000 + Math.random() * 9000);
-            const referenceNumber = `KWIN-${servicePrefix}-${randomNumber}`;
-            
-            document.getElementById("bookRef").value = referenceNumber;
-            document.getElementById("bookService").value = serviceName;
-            
-            setMinDate();
-            bookTimeSelect.innerHTML = '<option value="" disabled selected>Select Date First</option>';
-            bookTimeSelect.disabled = true;
-            
-            bookingModal.style.display = "flex";
-        }
 
-        function closeBooking() {
-            bookingModal.style.display = "none";
-            googleSheetBookingForm.reset();
+// OPEN MODAL
+function openBooking(serviceName, servicePrefix) {
+
+    const randomNumber =
+        Math.floor(1000 + Math.random() * 9000);
+
+    const referenceNumber =
+        `KWIN-${servicePrefix}-${randomNumber}`;
+
+    document.getElementById("bookRef").value =
+        referenceNumber;
+
+    document.getElementById("bookService").value =
+        serviceName;
+
+    setMinDate();
+
+    bookTimeSelect.innerHTML =
+        '<option disabled selected>Select Date First</option>';
+
+    bookTimeSelect.disabled = true;
+
+    bookingModal.style.display = "flex";
+}
+
+
+// CLOSE MODAL
+function closeBooking() {
+
+    bookingModal.style.display = "none";
+
+    googleSheetBookingForm.reset();
+
+    submitBtn.disabled = false;
+
+    submitBtn.innerText =
+        "Confirm Booking via WhatsApp";
+}
+
+
+// OUTSIDE CLICK CLOSE
+window.onclick = function(event) {
+
+    if (event.target == bookingModal) {
+
+        closeBooking();
+    }
+}
+
+
+// FORM SUBMIT
+googleSheetBookingForm.addEventListener(
+    "submit",
+    function(e) {
+
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+
+    submitBtn.innerText =
+        "Saving Appointment...";
+
+    const ref =
+        document.getElementById("bookRef").value;
+
+    const service =
+        document.getElementById("bookService").value;
+
+    const date =
+        document.getElementById("bookDate").value;
+
+    const time =
+        document.getElementById("bookTime").value;
+
+    const name =
+        document.getElementById("bookName").value;
+
+    const email =
+        document.getElementById("bookEmail").value;
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append("ref", ref);
+    formData.append("service", service);
+    formData.append("date", date);
+    formData.append("time", time);
+    formData.append("name", name);
+    formData.append("email", email);
+
+
+    fetch(GOOGLE_SCRIPT_URL, {
+
+        method: "POST",
+
+        body: formData
+    })
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        if (data.result === "success") {
+
+            const whatsappNumber =
+                "94707140731";
+
+            const message =
+`🔴 NEW BOOKING 🔴
+
+🆔 Reference: ${ref}
+
+💼 Service: ${service}
+
+📅 Date: ${date}
+
+🕒 Time: ${time}
+
+👤 Name: ${name}
+
+✉️ Email: ${email}`;
+
+            const whatsappURL =
+                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            window.open(
+                whatsappURL,
+                "_blank"
+            );
+
+            closeBooking();
+
+        } else {
+
+            alert("Booking Failed!");
+
             submitBtn.disabled = false;
-            submitBtn.innerText = "Confirm Booking via WhatsApp";
+
+            submitBtn.innerText =
+                "Confirm Booking via WhatsApp";
         }
+    })
 
-        window.onclick = function(event) {
-            if (event.target == bookingModal) closeBooking();
-        }
+    .catch(error => {
 
-        // SUBMIT කරද්දී GOOGLE SHEET එකට සේව් කරලා WHATSAPP යැවීම
-        googleSheetBookingForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Saving Appointment... ⏳";
+        console.error(error);
 
-            const ref = document.getElementById("bookRef").value;
-            const service = document.getElementById("bookService").value;
-            const date = document.getElementById("bookDate").value;
-            const time = document.getElementById("bookTime").value;
-            const name = document.getElementById("bookName").value;
-            const email = document.getElementById("bookEmail").value;
-            
-            const formData = new URLSearchParams();
-            formData.append("ref", ref);
-            formData.append("service", service);
-            formData.append("date", date);
-            formData.append("time", time);
-            formData.append("name", name);
-            formData.append("email", email);
+        alert("Network Error!");
 
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: "POST",
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.result === "success") {
-                    const whatsappNumber = "94707140731";
-                    const message = `🔴 *NEW BOOKING ORDER* 🔴\n\n` +
-                                    `🆔 *Reference:* ${ref}\n` +
-                                    `💼 *Service:* ${service}\n\n` +
-                                    `📅 *Date:* ${date}\n` +
-                                    `🕒 *Time Slot:* ${time}\n\n` +
-                                    `👤 *Client Name:* ${name}\n` +
-                                    `✉️ *Email:* ${email}\n\n` +
-                                    `⚡ _Saved to Database & Sent via K-WIN Website_`;
-                    
-                    const encodedMessage = encodeURIComponent(message);
-                    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-                    
-                    window.open(whatsappURL, '_blank');
-                    closeBooking();
-                } else {
-                    alert("යම් දෝෂයක් සිදු වුනා. නැවත උත්සාහ කරන්න!");
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "Confirm Booking via WhatsApp";
-                }
-            })
-            .catch(err => {
-                console.error("Error saving data:", err);
-                alert("Network Error! ඩේටා සේව් කරගන්න බැරි වුණා.");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Confirm Booking via WhatsApp";
-            });
-        });
+        submitBtn.disabled = false;
+
+        submitBtn.innerText =
+            "Confirm Booking via WhatsApp";
+    });
+});
+</script>
     </script>
 </body>
 </html>
