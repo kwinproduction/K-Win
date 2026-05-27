@@ -249,10 +249,10 @@
         .modal-content {
             background: #0d0d0d;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 30px 30px;
+            padding: 35px 30px;
             border-radius: 20px;
             width: 100%;
-            max-width: 520px;
+            max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
@@ -292,7 +292,7 @@
         .modal h2 {
             font-family: 'Montserrat', sans-serif;
             margin-bottom: 25px;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #fff;
             text-align: center;
@@ -313,7 +313,7 @@
         }
 
         /* FORM INPUTS & SELECTS */
-        input, textarea, select {
+        input, select {
             width: 100%;
             margin-bottom: 20px;
             padding: 14px;
@@ -331,7 +331,12 @@
             color: #fff;
         }
 
-        input:focus, textarea:focus, select:focus {
+        select option:disabled {
+            color: #555 !important;
+            background: #1a1a1a;
+        }
+
+        input:focus, select:focus {
             outline: none;
             border-color: var(--primary-red);
             background: rgba(255, 255, 255, 0.05);
@@ -547,12 +552,12 @@
                 <div class="datetime-group">
                     <div>
                         <label>Appointment Date</label>
-                        <input type="date" id="bookDate" required onchange="validateDate()">
+                        <input type="date" id="bookDate" required onchange="handleDateChange()">
                     </div>
                     <div>
                         <label>Available Time</label>
-                        <select id="bookTime" required>
-                            <option value="" disabled selected>Select Time</option>
+                        <select id="bookTime" required disabled>
+                            <option value="" disabled selected>Select Date First</option>
                             <option value="08:00 AM">08:00 AM</option>
                             <option value="09:30 AM">09:30 AM</option>
                             <option value="12:00 PM">12:00 PM</option>
@@ -562,9 +567,11 @@
                     </div>
                 </div>
 
-                <input type="text" id="bookName" placeholder="Your Name" required>
-                <input type="email" id="bookEmail" placeholder="Your Email" required>
-                <textarea id="bookDetails" placeholder="Add details or custom requirements about your project..." rows="4" required></textarea>
+                <label>Your Name</label>
+                <input type="text" id="bookName" placeholder="Enter your full name" required>
+
+                <label>Your Email Address</label>
+                <input type="email" id="bookEmail" placeholder="Enter your email address" required>
 
                 <button class="btn-submit" type="submit">Confirm Booking via WhatsApp</button>
             </form>
@@ -589,26 +596,52 @@
         const bookingModal = document.getElementById("bookingModal");
         const whatsappBookingForm = document.getElementById("whatsappBookingForm");
         const bookDateInput = document.getElementById("bookDate");
+        const bookTimeSelect = document.getElementById("bookTime");
 
-        // Set minimum date to today automatically so past dates can't be selected
+        // Set minimum date restrictions to today
         function setMinDate() {
             const today = new Date().toISOString().split('T')[0];
             bookDateInput.setAttribute('min', today);
         }
 
-        // Validate selected date to block ONLY Saturdays
-        function validateDate() {
+        // Date එක සිලෙක්ට් කරද්දී සෙනසුරාදා බ්ලොක් කරලා බුකින් ලිස්ට් එක balance කිරීම
+        function handleDateChange() {
             const selectedDate = new Date(bookDateInput.value);
             const day = selectedDate.getUTCDay();
             
-            // 6 = Saturday
-            if (day === 6) {
-                alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත. කරුණාකර වෙනත් දිනයක් තෝරන්න! (We are closed on Saturdays. Please select another day.)");
+            if (day === 6) { // 6 = Saturday
+                alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත. කරුණාකර වෙනත් දිනයක් තෝරන්න!");
                 bookDateInput.value = "";
+                bookTimeSelect.disabled = true;
+                return;
+            }
+
+            if (bookDateInput.value) {
+                balanceTimeSlots(bookDateInput.value);
             }
         }
 
-        // Open Booking Window System
+        // LocalStorage එක චෙක් කරලා බුක් උන වෙලාවල් drop-down එකෙන් අයින් කිරීම
+        function balanceTimeSlots(dateString) {
+            const savedBookings = JSON.parse(localStorage.getItem('kwin_booked_slots')) || [];
+            const allSlots = ["08:00 AM", "09:30 AM", "12:00 PM", "02:30 PM", "04:00 PM"];
+            let selectHTML = '<option value="" disabled selected>Select Time</option>';
+            
+            allSlots.forEach(slot => {
+                const isBooked = savedBookings.some(b => b.date === dateString && b.time === slot);
+                
+                if (isBooked) {
+                    selectHTML += `<option value="${slot}" disabled>${slot} (Already Booked 🚫)</option>`;
+                } else {
+                    selectHTML += `<option value="${slot}">${slot}</option>`;
+                }
+            });
+
+            bookTimeSelect.innerHTML = selectHTML;
+            bookTimeSelect.disabled = false;
+        }
+
+        // Modal Open System
         function openBooking(serviceName, servicePrefix) {
             const randomNumber = Math.floor(1000 + Math.random() * 9000);
             const referenceNumber = `KWIN-${servicePrefix}-${randomNumber}`;
@@ -616,24 +649,27 @@
             document.getElementById("bookRef").value = referenceNumber;
             document.getElementById("bookService").value = serviceName;
             
-            setMinDate(); // Set minimum date restrictions when opened
+            setMinDate();
+            bookTimeSelect.innerHTML = '<option value="" disabled selected>Select Date First</option>';
+            bookTimeSelect.disabled = true;
+            
             bookingModal.style.display = "flex";
         }
 
-        // Close Booking Window System
+        // Modal Close System
         function closeBooking() {
             bookingModal.style.display = "none";
             whatsappBookingForm.reset();
         }
 
-        // Close when clicking outside content box bounds
+        // Click Outside Bounds to Close
         window.onclick = function(event) {
             if (event.target == bookingModal) {
                 closeBooking();
             }
         }
 
-        // Submit Dynamic Form to WhatsApp API
+        // Submit to WhatsApp Logic
         whatsappBookingForm.addEventListener("submit", function(e) {
             e.preventDefault();
             
@@ -643,8 +679,13 @@
             const time = document.getElementById("bookTime").value;
             const name = document.getElementById("bookName").value;
             const email = document.getElementById("bookEmail").value;
-            const details = document.getElementById("bookDetails").value;
             
+            // 1. තෝරපු වෙලාව බ්‍රවුසර් එකේ auto-block වෙන්න සේව් කරනවා
+            const savedBookings = JSON.parse(localStorage.getItem('kwin_booked_slots')) || [];
+            savedBookings.push({ date: date, time: time });
+            localStorage.setItem('kwin_booked_slots', JSON.stringify(savedBookings));
+
+            // 2. WhatsApp එකට විස්තර යැවීම
             const whatsappNumber = "94707140731";
             
             const message = `🔴 *NEW BOOKING ORDER* 🔴\n\n` +
@@ -654,7 +695,6 @@
                             `🕒 *Time Slot:* ${time}\n\n` +
                             `👤 *Client Name:* ${name}\n` +
                             `✉️ *Email:* ${email}\n\n` +
-                            `📝 *Details & Requirements:* \n${details}\n\n` +
                             `⚡ _Sent automatically from K-WIN Productions Website_`;
             
             const encodedMessage = encodeURIComponent(message);
