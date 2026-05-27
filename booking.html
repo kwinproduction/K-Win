@@ -195,8 +195,8 @@
     </footer>
 
     <script>
-        // 🚀 ඔයා දුන්න අලුත්ම Google Script Web App URL එක මම මෙතනට දැම්මා මචන්!
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykfv71yxNjiMxQee7z2Ih8jOBgrcIPLobntTRacBRoxBu-kYO49U2uQrBQ9D81yoOgFA/exec";
+        // 🚀 ඔයා දුන්න අලුත්ම Google Script Web App URL එක මෙතනට දැම්මා මචන්
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVne6JG-ZREpTGPdztnfneIU7TXdp8wJNdC4sr6916_k9dpk0__ctMGYTnP_tPDQKRnA/exec";
 
         const bookingModal = document.getElementById("bookingModal");
         const googleSheetBookingForm = document.getElementById("googleSheetBookingForm");
@@ -238,6 +238,7 @@
                 let selectHTML = '<option value="" disabled selected>Select Time</option>';
                 
                 allSlots.forEach(slot => {
+                    // 🔥 මෙතනදී සර්විස් එක නොබලා දවස සහ වෙලාව විතරක් සමානද කියලා චෙක් කරලා බ්ලොක් කරනවා
                     const isBooked = savedBookings.some(b => b.date === dateString && b.time === slot);
                     
                     if (isBooked) {
