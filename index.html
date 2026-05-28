@@ -36,7 +36,7 @@
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: var(--primary-gradient); border-radius: 10px; }
 
-        /* 🛠️ BODY BACKGROUND එකට LOGO 02.PNG ඇතුළත් කිරීම සහ PREMIUM GLOWS */
+        /* BODY BACKGROUND & PREMIUM GLOWS */
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(rgba(6, 6, 6, 0.88), rgba(6, 6, 6, 0.94)), 
@@ -77,6 +77,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
         }
 
         .nav-logo-link {
@@ -457,14 +458,45 @@
         }
 
         /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 900px) {
+            header h1 { font-size: 3.4rem; }
+            .section-title h2 { font-size: 2.6rem; }
+            .container { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        }
+
         @media (max-width: 768px) {
             nav { padding: 15px 5%; flex-direction: column; gap: 12px; text-align: center; }
+            .nav-links { gap: 20px; }
             .main-logo { max-width: 180px; }
-            header h1 { font-size: 2.8rem; }
+            header { padding-top: 190px; padding-bottom: 60px; }
+            header h1 { font-size: 2.6rem; }
+            header p { font-size: 0.8rem; letter-spacing: 3px; }
             section { padding: 60px 5% 40px 5%; }
+            .section-title { margin-bottom: 40px; }
             .section-title h2 { font-size: 2.2rem; }
-            form { padding: 30px 20px; }
+            form { padding: 30px 20px; margin-bottom: 40px; }
+            .form-title { font-size: 1.4rem; margin-bottom: 20px; }
             .container { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+            .card { padding: 35px 25px; border-radius: 20px; }
+        }
+
+        /* EXTRA OPTIMIZATION FOR ULTRA-SMALL PHONE SCREENS (eg: iPhone SE, Older Androids) */
+        @media (max-width: 480px) {
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.85rem; }
+            .main-logo { max-width: 150px; }
+            header h1 { font-size: 2.1rem; }
+            header p { font-size: 0.75rem; letter-spacing: 2px; }
+            .section-title h2 { font-size: 1.8rem; }
+            .container { grid-template-columns: 1fr; } /* දුරකථන තිර වලදී සේවා කාඩ්පත් තනි පෙළට */
+            .card h3 { font-size: 1.15rem; }
+            .card p { font-size: 0.85rem; }
+            input, textarea { padding: 14px 16px; font-size: 0.88rem; }
+            .btn { padding: 14px 20px; font-size: 0.95rem; }
+            .comment-box { padding: 20px; }
+            .comment-box h3 { font-size: 1rem; }
+            .comment-box p { font-size: 0.88rem; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 48px; height: 48px; font-size: 24px; }
         }
     </style>
 </head>
