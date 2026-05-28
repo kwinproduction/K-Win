@@ -189,12 +189,39 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* RESPONSIVE STYLES */
+        @media (max-width: 900px) {
+            header h1 { font-size: 3.5rem; }
+            .container { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        }
+
         @media (max-width: 768px) {
             nav { padding: 15px 5%; flex-direction: column; gap: 12px; }
-            header { padding-top: 160px; }
+            .nav-links { gap: 20px; }
+            header { padding-top: 160px; padding-bottom: 60px; }
             header h1 { font-size: 3rem; }
+            .section-title { margin-bottom: 40px; }
+            .section-title h2 { font-size: 2.2rem; }
             .datetime-group { grid-template-columns: 1fr; gap: 0; }
-            .services-section { padding-bottom: 60px; }
+            .services-section { padding-bottom: 60px; padding-left: 5%; padding-right: 5%; }
+            .modal-content { padding: 30px 20px; border-radius: 20px; }
+        }
+
+        /* EXTRA OPTIMIZATION FOR ULTRA-SMALL PHONE SCREENS */
+        @media (max-width: 480px) {
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.85rem; }
+            header h1 { font-size: 2.4rem; }
+            header p { font-size: 0.8rem; letter-spacing: 2px; }
+            .main-logo { width: 100px; margin-bottom: 15px; }
+            .container { grid-template-columns: 1fr; } /* ෆෝන් එකේදී කාඩ් එක බැගින් තනි පෙළට */
+            .card { padding: 30px 20px; border-radius: 20px; }
+            .card i { font-size: 2.4rem; margin-bottom: 15px; }
+            .card h2 { font-size: 1.25rem; }
+            .modal-content h2 { font-size: 1.4rem; margin-bottom: 20px; }
+            input, select { padding: 12px; font-size: 0.9rem; margin-bottom: 15px; }
+            .btn-submit { padding: 12px 20px; font-size: 0.9rem; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 48px; height: 48px; font-size: 24px; }
         }
     </style>
 </head>
