@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-WIN</title> 
+    <title> K-WIN </title> 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,11 +11,12 @@
     <style>
         :root {
             --primary-red: #ff1a1a;
-            --primary-red-glow: rgba(255, 26, 26, 0.5);
-            --dark-bg: #0a0a0a;
-            --dark-card: #141414;
+            --primary-gradient: linear-gradient(135deg, #ff1a1a 0%, #990000 100%);
+            --dark-bg: #060606;
+            --dark-card: rgba(20, 20, 20, 0.55);
             --text-main: #ffffff;
-            --text-muted: #b3b3b3;
+            --text-muted: #a3a3a3;
+            --border-glow: rgba(255, 26, 26, 0.2);
         }
 
         * { 
@@ -31,21 +32,44 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
 
-        /* NAVIGATION BAR (MATCHES HOME PAGE) */
+        /* PREMIUM DYNAMIC BACKGROUND GLOWS */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            background: rgba(255, 26, 26, 0.06);
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        body::before { top: 20%; left: -120px; }
+        body::after { bottom: 25%; right: -120px; }
+
+        /* SCROLLBAR STYLE */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-gradient); border-radius: 10px; }
+
+        /* NAVIGATION BAR */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 8%;
+            padding: 20px 8%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(6, 6, 6, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
         }
 
         .nav-logo-link {
@@ -55,15 +79,18 @@
         }
 
         .nav-logo-img {
-            height: 45px;
+            height: 42px;
             width: auto;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
         }
+        
+        .nav-logo-img:hover { transform: scale(1.05); }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 35px;
         }
 
         .nav-links a {
@@ -72,38 +99,60 @@
             font-weight: 500;
             font-size: 0.95rem;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-red);
+            color: #fff;
         }
 
         /* GALLERY HEADER */
         .gallery-header {
             text-align: center;
-            padding: 160px 20px 40px;
-            background: linear-gradient(rgba(10, 10, 10, 0.5), var(--dark-bg));
+            padding: 180px 20px 50px;
+            background: linear-gradient(rgba(6, 6, 6, 0.55), var(--dark-bg));
         }
 
         .gallery-header h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 900;
             margin-bottom: 10px;
-            letter-spacing: 1px;
-            animation: fadeInDown 0.8s ease;
+            letter-spacing: -1px;
+            animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .gallery-header h1 span { 
-            color: var(--primary-red); 
-            text-shadow: 0 0 20px var(--primary-red-glow);
+        .gallery-header h1 span.Kind { 
+            background: linear-gradient(135deg, #fff 30%, var(--primary-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+        
+        .gallery-header h1 span.w-text { color: var(--primary-red); }
+        .gallery-header h1 span.in-text { color: #fff; }
 
         .gallery-header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         /* GALLERY GRID */
@@ -112,25 +161,30 @@
             margin: auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 35px;
             padding: 20px 8% 100px 8%;
             animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 10;
         }
 
         .gallery-item {
             background: var(--dark-card);
-            border-radius: 16px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .gallery-item:hover {
             transform: translateY(-8px);
-            border-color: rgba(255, 26, 26, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px rgba(255, 26, 26, 0.04), 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         /* CARD MEDIA PREVIEWS */
@@ -138,7 +192,7 @@
             position: relative;
             width: 100%;
             height: 220px;
-            background: #111;
+            background: #0f0f0f;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -153,31 +207,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0.6;
+            opacity: 0.4;
             transition: all 0.3s ease;
-            backdrop-filter: blur(1px);
+            backdrop-filter: blur(2px);
         }
 
         .gallery-item:hover .play-overlay {
             opacity: 1;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(0px);
         }
 
         .play-overlay i {
-            font-size: 3.8rem;
+            font-size: 3.5rem;
             color: #fff;
-            text-shadow: 0 0 20px rgba(255, 26, 26, 0.7);
-            transition: transform 0.3s ease;
+            text-shadow: 0 0 25px rgba(255, 26, 26, 0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .gallery-item:hover .play-overlay i {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         /* Audio & Drive specific preview card style */
         .audio-bg, .drive-bg {
-            background: linear-gradient(135deg, #161616, #2d0505);
+            background: linear-gradient(135deg, #121212 0%, #240404 100%);
             width: 100%;
             height: 100%;
             display: flex;
@@ -188,22 +242,26 @@
         }
         
         .audio-bg i, .drive-bg i {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             color: var(--primary-red);
-            text-shadow: 0 0 15px rgba(255, 26, 26, 0.3);
+            text-shadow: 0 0 20px rgba(255, 26, 26, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .audio-bg i, .gallery-item:hover .drive-bg i {
+            transform: scale(1.05);
         }
 
         /* CARD DETAILS */
         .item-details {
-            padding: 24px;
+            padding: 25px;
             text-align: center;
-            background: var(--dark-card);
+            background: rgba(15, 15, 15, 0.4);
         }
 
         .item-details h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: #fff;
         }
 
@@ -211,7 +269,7 @@
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.98);
+            background: rgba(4, 4, 4, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -221,6 +279,7 @@
             transition: opacity 0.4s ease;
             padding: 20px;
             backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
         }
 
         .modal.active {
@@ -232,11 +291,12 @@
             position: relative;
             max-width: 1000px;
             width: 100%;
-            background: #111111;
-            border-radius: 20px;
+            background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 26, 26, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 26, 26, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             transform: scale(0.93);
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             display: flex;
@@ -252,9 +312,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 25px;
-            background: rgba(20, 20, 20, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 20px 25px;
+            background: rgba(20, 20, 20, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .modal-meta-title h4 {
@@ -276,7 +336,7 @@
 
         .modal-close-btn {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             color: #fff;
             width: 38px;
             height: 38px;
@@ -300,7 +360,7 @@
         .modal-body {
             position: relative;
             width: 100%;
-            background: #0d0d0d;
+            background: #090909;
             min-height: 200px;
             display: flex;
             justify-content: center;
@@ -348,7 +408,7 @@
         .drive-iframe-container {
             width: 100%;
             height: 75vh;
-            background: #111;
+            background: #0a0a0a;
         }
 
         .drive-iframe-container iframe {
@@ -361,7 +421,7 @@
             padding: 60px 40px;
             width: 100%;
             text-align: center;
-            background: linear-gradient(135deg, #111, #1a0505);
+            background: linear-gradient(135deg, #0d0d0d, #1a0505);
         }
 
         .audio-player-container h2 {
@@ -382,50 +442,50 @@
         /* FLOATING WHATSAPP BUTTON */
         .whatsapp-float {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            bottom: 35px;
+            right: 35px;
+            width: 55px;
+            height: 55px;
             background: #25d366;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
+            font-size: 28px;
             color: #fff;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
             z-index: 999;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
         }
 
         /* FOOTER */
         footer {
             text-align: center;
-            padding: 60px 20px;
-            background: #050505;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 50px 20px;
+            background: #030303;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 25px;
         }
 
         .social-icons a {
             color: var(--text-muted);
-            font-size: 1.3rem;
-            width: 45px;
-            height: 45px;
+            font-size: 1.1rem;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: var(--dark-card);
+            background: rgba(255, 255, 255, 0.03);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -438,13 +498,14 @@
             color: #fff;
             background: var(--primary-red);
             transform: translateY(-4px);
-            box-shadow: 0 5px 15px rgba(255, 26, 26, 0.3);
+            box-shadow: 0 8px 20px rgba(255, 26, 26, 0.3);
+            border-color: transparent;
         }
 
         footer p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 4px;
         }
 
         /* KEYFRAME ANIMATIONS */
@@ -459,9 +520,9 @@
 
         /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 768px) {
-            nav { padding: 15px 5%; flex-direction: column; gap: 15px; text-align: center; }
+            nav { padding: 15px 5%; flex-direction: column; gap: 12px; text-align: center; }
             .gallery-header { padding-top: 190px; }
-            .gallery-header h1 { font-size: 2.3rem; }
+            .gallery-header h1 { font-size: 2.5rem; }
             .gallery-container { padding: 10px 5% 80px 5%; gap: 20px; }
             .drive-iframe-container { height: 60vh; }
             .modal-container { width: 95%; }
@@ -472,7 +533,6 @@
 </head>
 <body>
 
-    <!-- NAVIGATION BAR -->
     <nav>
         <a href="index.html" class="nav-logo-link">
             <img src="logo.jpeg" alt="K-WIN Icon" class="nav-logo-img">
@@ -485,16 +545,13 @@
         </div>
     </nav>
 
-    <!-- GALLERY HEADER SECTION -->
     <section class="gallery-header">
-    <h1><span class="Kind text"> Kind </span><span class="w-text"> W</span><span class="in-text">in</span></h1> Media Gallery</h1>
+        <h1><span class="Kind">Kind</span> <span class="w-text">W</span><span class="in-text">in</span> Media Gallery</h1>
         <p>Explore our creations and professional productions</p> 
     </section>
 
-    <!-- GALLERY GRID CONTAINER -->
     <main class="gallery-container">
 
-        <!-- DYNAMIC GOOGLE DRIVE PHOTOS CARD -->
         <div class="gallery-item" data-category="Photos" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1lnazTNgyzJMry6cROmOudn5drW_UuKqY#grid">
             <div class="media-preview">
                 <div class="drive-bg">
@@ -509,7 +566,6 @@
             </div>
         </div>
 
-        <!-- DYNAMIC GOOGLE DRIVE VIDEOS CARD -->
         <div class="gallery-item" data-category="Videos" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1yTeZ1XvrIdVYYMKaYzyj_pP4FVAZW2Nn#grid">
             <div class="media-preview">
                 <div class="drive-bg">
@@ -524,7 +580,6 @@
             </div>
         </div>
 
-        <!-- AUDIO CARD  -->
         <div class="gallery-item" data-category="Audios" data-type="drive" data-src="https://drive.google.com/embeddedfolderview?id=1tEYXbzxEWIPRHW2FepMoBBxfHKWv-tbb#grid">
             <div class="media-preview">
                 <div class="audio-bg">
@@ -540,10 +595,8 @@
         </div>
     </main>
 
-    <!-- ENHANCED POPUP LIGHTBOX MODAL CONTAINER -->
     <div class="modal" id="mediaModal">
         <div class="modal-container">
-            <!-- Dynamic Header Bar inside popup -->
             <div class="modal-header-bar">
                 <div class="modal-meta-title">
                     <span id="modalCategoryTag">Category</span>
@@ -552,24 +605,20 @@
                 <button class="modal-close-btn" onclick="closeModal()">&times;</button>
             </div>
             
-            <!-- Content Wrapper with Loader -->
             <div class="modal-body">
                 <div class="modal-loader" id="modalLoader">
                     <i class="fas fa-circle-notch fa-spin"></i>
                 </div>
                 <div class="modal-content" id="modalContent">
-                    <!-- Loaded dynamically via JS -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
-    <!-- FLOATING WHATSAPP BUTTON -->
     <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank" aria-label="Contact on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- FOOTER -->
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -580,9 +629,7 @@
         <p>Kurunegala, Sri Lanka</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC CODE -->
     <script>
-        // LIGHTBOX MODAL CONTROLLER SYSTEM
         const modal = document.getElementById('mediaModal');
         const modalContent = document.getElementById('modalContent');
         const modalLoader = document.getElementById('modalLoader');
@@ -597,16 +644,13 @@
                 const category = item.getAttribute('data-category');
                 const title = item.querySelector('h3').innerText;
                 
-                // Reset states
                 modalContent.classList.remove('loaded');
                 modalLoader.style.display = 'block';
                 modalContent.innerHTML = ''; 
 
-                // Inject texts into modern header bar
                 modalCategoryTag.innerText = `K-WIN Production • ${category}`;
                 modalProjectTitle.innerText = title;
 
-                // Load appropriate content markup
                 if (type === 'photo') {
                     modalContent.innerHTML = `<img src="${src}" alt="Project Content" id="mediaTarget">`;
                 } 
@@ -638,10 +682,8 @@
                     `;
                 }
 
-                // Show modal window
                 modal.classList.add('active');
 
-                // Media load listener to hide spinner gracefully
                 const target = document.getElementById('mediaTarget');
                 if (target) {
                     if (target.tagName === 'IFRAME' || target.tagName === 'IMG') {
@@ -662,7 +704,6 @@
             });
         });
 
-        // CLOSE MODAL INTERACTION
         function closeModal() {
             modal.classList.remove('active');
             setTimeout(() => {
