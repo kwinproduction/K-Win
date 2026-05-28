@@ -1,494 +1,827 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-WIN</title>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-WIN</title>
 
-    <style>
-        :root {
-            --primary-red: #ff1a1a;
-            --primary-gradient: linear-gradient(135deg, #ff1a1a 0%, #990000 100%);
-            --dark-bg: #060606;
-            --dark-card: rgba(20, 20, 20, 0.55);
-            --text-main: #ffffff;
-            --text-muted: #a3a3a3;
-            --border-glow: rgba(255, 26, 26, 0.2);
-        }
+<link rel="icon" type="image/svg+xml"
+href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<rect width='100' height='100' rx='20' fill='%230a0a0a'/>
+<text x='50%' y='65%' font-size='55'
+font-family='Montserrat,sans-serif'
+font-weight='800'
+text-anchor='middle'
+fill='%23ffffff'>
+K<tspan fill='%23ff1a1a'>W</tspan>
+</text>
+</svg>">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: var(--dark-bg); 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            line-height: 1.6; 
-            position: relative;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        /* PREMIUM DYNAMIC BACKGROUND GLOWS */
-        body::before, body::after {
-            content: '';
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            background: rgba(255, 26, 26, 0.07);
-            border-radius: 50%;
-            filter: blur(140px);
-            z-index: -1;
-            pointer-events: none;
-        }
-        body::before { top: 15%; left: -120px; }
-        body::after { bottom: 30%; right: -120px; }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        /* SCROLLBAR STYLE */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: var(--primary-gradient); border-radius: 10px; }
+<style>
 
-        /* NAVIGATION BAR */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(6, 6, 6, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.3s ease; }
-        .nav-logo-link { display: flex; align-items: center; text-decoration: none; }
-        .nav-logo-img { height: 42px; width: auto; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease; }
-        .nav-logo-img:hover { transform: scale(1.05); }
-        .nav-links { display: flex; gap: 35px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; padding: 5px 0; }
-        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--primary-red); transition: width 0.3s ease; }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
+:root{
+    --primary-red:#ff1a1a;
+    --primary-gradient:linear-gradient(135deg,#ff1a1a 0%,#990000 100%);
+    --dark-bg:#060606;
+    --dark-card:rgba(20,20,20,0.55);
+    --text-main:#ffffff;
+    --text-muted:#a3a3a3;
+    --border-glow:rgba(255,26,26,0.2);
+}
 
-        /* HERO HEADER SECTION */
-        header { min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 180px 20px 80px 20px; background: linear-gradient(rgba(6, 6, 6, 0.55), var(--dark-bg)), url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-attachment: fixed; }
-        .main-logo { width: 130px; height: auto; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(255, 26, 26, 0.2); border: 1px solid rgba(255, 255, 255, 0.15); animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        header h1 { font-family: 'Montserrat', sans-serif; font-size: 4.5rem; font-weight: 900; letter-spacing: -1px; color: #fff; line-height: 1.1; margin-bottom: 10px; }
-        header h1 span { background: linear-gradient(135deg, #fff 30%, var(--primary-red) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        header p { font-size: 0.95rem; color: var(--primary-red); font-weight: 600; letter-spacing: 4px; text-transform: uppercase; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        /* SERVICES SECTION */
-        .services-section { padding: 60px 8% 100px 8%; max-width: 1400px; margin: auto; position: relative; z-index: 10; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; font-weight: 800; letter-spacing: -0.5px; }
-        .section-title h2 span { color: var(--primary-red); }
-        .section-title h3 { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 3px; margin-top: 8px; }
+html{
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+}
 
-        /* GLASSMORPHIC CONTAINERS AND CARDS */
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .card { 
-            background: var(--dark-card); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 40px 30px; 
-            border-radius: 24px; 
-            text-align: center; 
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            align-items: center; 
-            border: 1px solid rgba(255, 255, 255, 0.04); 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .card:hover { 
-            transform: translateY(-8px); 
-            border-color: var(--border-glow); 
-            box-shadow: 0 20px 40px rgba(255, 26, 26, 0.04), 0 15px 35px rgba(0, 0, 0, 0.4); 
-        }
-        .card i { font-size: 2.8rem; color: var(--primary-red); margin-bottom: 20px; transition: transform 0.3s ease; }
-        .card:hover i { transform: scale(1.08); }
-        .card h2 { font-family: 'Montserrat', sans-serif; font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-        .card p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; font-weight: 300; }
-        
-        .btn-book { 
-            background: transparent; 
-            color: #fff; 
-            border: 2px solid var(--primary-red); 
-            padding: 10px 32px; 
-            border-radius: 25px; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            font-weight: 600; 
-            font-size: 0.9rem;
-        }
-        .btn-book:hover { background: var(--primary-red); box-shadow: 0 8px 25px rgba(255, 26, 26, 0.4); transform: scale(1.03); }
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--dark-bg);
+    color:var(--text-main);
+    overflow-x:hidden;
+    line-height:1.6;
+    position:relative;
+    width:100%;
+}
 
-        /* GLASSMORPHIC MODAL POPUP */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(4, 4, 4, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { 
-            background: rgba(15, 15, 15, 0.85); 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06); 
-            padding: 40px 35px; 
-            border-radius: 24px; 
-            width: 100%; 
-            max-width: 480px; 
-            position: relative; 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 26, 26, 0.1); 
-        }
-        .close-btn { position: absolute; right: 24px; top: 20px; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
-        .close-btn:hover { color: var(--primary-red); }
-        .modal h2 { font-family: 'Montserrat', sans-serif; margin-bottom: 30px; font-size: 1.7rem; text-align: center; font-weight: 800; }
-        .modal h2 span { color: var(--primary-red); }
-        .modal label { display: block; margin-bottom: 8px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
-        
-        input, select { 
-            width: 100%; 
-            margin-bottom: 20px; 
-            padding: 14px; 
-            border-radius: 12px; 
-            border: 1px solid rgba(255, 255, 255, 0.06); 
-            background: rgba(255, 255, 255, 0.03); 
-            color: #fff; 
-            font-family: 'Poppins', sans-serif; 
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        input:focus, select:focus { outline: none; border-color: var(--primary-red); background: rgba(255, 255, 255, 0.05); box-shadow: 0 0 15px rgba(255, 26, 26, 0.1); }
-        .readonly-box { background: rgba(255, 26, 26, 0.04) !important; border: 1px solid rgba(255, 26, 26, 0.15) !important; color: var(--primary-red) !important; font-weight: 600; cursor: not-allowed; }
-        .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        .btn-submit { background: var(--primary-gradient); color: #fff; padding: 15px 25px; border: none; border-radius: 30px; cursor: pointer; font-weight: 600; width: 100%; box-shadow: 0 6px 20px rgba(255, 26, 26, 0.3); transition: all 0.3s ease; font-size: 0.95rem; }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 26, 26, 0.4); }
-        .btn-submit:disabled { background: #222; color: #555; cursor: not-allowed; box-shadow: none; transform: none; }
+/* BACKGROUND GLOW */
 
-        /* FLOATING WHATSAPP */
-        .whatsapp-float { 
-            position: fixed; 
-            bottom: 35px; 
-            right: 35px; 
-            width: 55px; 
-            height: 55px; 
-            background: #25d366; 
-            border-radius: 50%; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            font-size: 28px; 
-            color: #fff; 
-            z-index: 1500; 
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-        }
-        .whatsapp-float:hover { transform: scale(1.15) rotate(15deg); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5); }
+body::before,
+body::after{
+    content:'';
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:rgba(255,26,26,0.07);
+    border-radius:50%;
+    filter:blur(140px);
+    z-index:-1;
+    pointer-events:none;
+}
 
-        /* FOOTER */
-        footer { text-align: center; padding: 50px 20px; background: #030303; border-top: 1px solid rgba(255, 255, 255, 0.02); }
-        .social-icons { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
-        .social-icons a { color: var(--text-muted); font-size: 1.1rem; width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); display: flex; justify-content: center; align-items: center; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
-        .social-icons a:hover { color: #fff; background: var(--primary-red); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(255, 26, 26, 0.3); border-color: transparent; }
-        footer p { font-size: 0.85rem; color: #666; margin-bottom: 4px; font-weight: 400; }
+body::before{
+    top:15%;
+    left:-120px;
+}
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+body::after{
+    bottom:30%;
+    right:-120px;
+}
 
-        /* RESPONSIVE STYLES */
-        @media (max-width: 900px) {
-            header h1 { font-size: 3.5rem; }
-            .container { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        }
+/* SCROLLBAR */
 
-        @media (max-width: 768px) {
-            nav { padding: 15px 5%; flex-direction: column; gap: 12px; }
-            .nav-links { gap: 20px; }
-            header { padding-top: 160px; padding-bottom: 60px; }
-            header h1 { font-size: 3rem; }
-            .section-title { margin-bottom: 40px; }
-            .section-title h2 { font-size: 2.2rem; }
-            .datetime-group { grid-template-columns: 1fr; gap: 0; }
-            .services-section { padding-bottom: 60px; padding-left: 5%; padding-right: 5%; }
-            .modal-content { padding: 30px 20px; border-radius: 20px; }
-        }
+::-webkit-scrollbar{
+    width:8px;
+}
 
-        /* EXTRA OPTIMIZATION FOR ULTRA-SMALL PHONE SCREENS */
-        @media (max-width: 480px) {
-            .nav-links { gap: 15px; }
-            .nav-links a { font-size: 0.85rem; }
-            header h1 { font-size: 2.4rem; }
-            header p { font-size: 0.8rem; letter-spacing: 2px; }
-            .main-logo { width: 100px; margin-bottom: 15px; }
-            .container { grid-template-columns: 1fr; } /* ෆෝන් එකේදී කාඩ් එක බැගින් තනි පෙළට */
-            .card { padding: 30px 20px; border-radius: 20px; }
-            .card i { font-size: 2.4rem; margin-bottom: 15px; }
-            .card h2 { font-size: 1.25rem; }
-            .modal-content h2 { font-size: 1.4rem; margin-bottom: 20px; }
-            input, select { padding: 12px; font-size: 0.9rem; margin-bottom: 15px; }
-            .btn-submit { padding: 12px 20px; font-size: 0.9rem; }
-            .whatsapp-float { bottom: 20px; right: 20px; width: 48px; height: 48px; font-size: 24px; }
-        }
-    </style>
+::-webkit-scrollbar-track{
+    background:#0a0a0a;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--primary-gradient);
+    border-radius:10px;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+    padding:18px 5%;
+
+    background:rgba(6,6,6,0.75);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,0.03);
+}
+
+.nav-logo-link{
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    flex-shrink:0;
+}
+
+.nav-logo-img{
+    width:46px;
+    height:46px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.3s ease;
+}
+
+.nav-logo-img:hover{
+    transform:scale(1.05);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    color:var(--text-muted);
+    text-decoration:none;
+    font-weight:500;
+    font-size:0.95rem;
+    transition:0.3s ease;
+    position:relative;
+}
+
+.nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:2px;
+    background:var(--primary-red);
+    transition:0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after{
+    width:100%;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:#fff;
+}
+
+/* HERO */
+
+header{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    padding:160px 20px 80px;
+
+    background:
+    linear-gradient(rgba(6,6,6,0.55),rgba(6,6,6,0.95)),
+    url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?auto=format&fit=crop&q=80&w=1600');
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
+
+.main-logo{
+    width:clamp(90px,18vw,130px);
+    border-radius:16px;
+    margin-bottom:25px;
+
+    box-shadow:0 15px 35px rgba(255,26,26,0.2);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    animation:fadeInUp .8s ease;
+}
+
+header h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(2.5rem,9vw,5rem);
+    font-weight:900;
+    line-height:1.1;
+    margin-bottom:12px;
+}
+
+header h1 span{
+    background:linear-gradient(135deg,#fff 30%,var(--primary-red) 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+header p{
+    font-size:clamp(.75rem,2vw,1rem);
+    color:var(--primary-red);
+    font-weight:600;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+
+/* SECTION */
+
+.services-section{
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    padding:60px 5% 100px;
+    position:relative;
+    z-index:10;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(2rem,6vw,3rem);
+    font-weight:800;
+}
+
+.section-title h2 span{
+    color:var(--primary-red);
+}
+
+.section-title h3{
+    font-size:0.95rem;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    letter-spacing:3px;
+    margin-top:10px;
+}
+
+.section-title h3 span{
+    color:var(--primary-red);
+}
+
+/* CARDS */
+
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:var(--dark-card);
+
+    backdrop-filter:blur(16px);
+
+    padding:40px 28px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,0.04);
+
+    transition:0.4s ease;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:var(--border-glow);
+}
+
+.card i{
+    font-size:2.8rem;
+    color:var(--primary-red);
+    margin-bottom:20px;
+}
+
+.card h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.35rem;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:var(--text-muted);
+    margin-bottom:25px;
+    font-size:0.95rem;
+}
+
+.btn-book{
+    background:transparent;
+    color:#fff;
+
+    border:2px solid var(--primary-red);
+
+    padding:12px 30px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    transition:0.3s ease;
+
+    font-weight:600;
+}
+
+.btn-book:hover{
+    background:var(--primary-red);
+    transform:scale(1.03);
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    z-index:2000;
+
+    background:rgba(4,4,4,0.85);
+
+    backdrop-filter:blur(12px);
+
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+}
+
+.modal-content{
+    width:100%;
+    max-width:480px;
+
+    max-height:95vh;
+    overflow-y:auto;
+
+    background:rgba(15,15,15,0.9);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    padding:35px 28px;
+
+    border-radius:24px;
+
+    position:relative;
+
+    box-shadow:
+    0 25px 50px rgba(0,0,0,0.5),
+    0 0 40px rgba(255,26,26,0.1);
+}
+
+.close-btn{
+    position:absolute;
+    right:22px;
+    top:18px;
+
+    font-size:1.8rem;
+
+    color:var(--text-muted);
+
+    cursor:pointer;
+}
+
+.close-btn:hover{
+    color:var(--primary-red);
+}
+
+.modal h2{
+    text-align:center;
+    margin-bottom:28px;
+
+    font-family:'Montserrat',sans-serif;
+    font-size:1.7rem;
+}
+
+.modal h2 span{
+    color:var(--primary-red);
+}
+
+.modal label{
+    display:block;
+    margin-bottom:8px;
+
+    font-size:0.8rem;
+
+    color:var(--text-muted);
+
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+input,
+select{
+    width:100%;
+
+    margin-bottom:18px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    background:rgba(255,255,255,0.03);
+
+    color:#fff;
+
+    font-family:'Poppins',sans-serif;
+
+    transition:0.3s ease;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+
+    border-color:var(--primary-red);
+
+    box-shadow:0 0 15px rgba(255,26,26,0.15);
+}
+
+.readonly-box{
+    background:rgba(255,26,26,0.04)!important;
+    border:1px solid rgba(255,26,26,0.15)!important;
+    color:var(--primary-red)!important;
+    font-weight:600;
+}
+
+.datetime-group{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.btn-submit{
+    width:100%;
+
+    background:var(--primary-gradient);
+
+    color:#fff;
+
+    padding:15px 25px;
+
+    border:none;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:0.3s ease;
+}
+
+.btn-submit:hover{
+    transform:translateY(-2px);
+}
+
+/* WHATSAPP */
+
+.whatsapp-float{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+
+    width:56px;
+    height:56px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#25d366;
+
+    color:#fff;
+
+    font-size:28px;
+
+    z-index:1500;
+
+    text-decoration:none;
+
+    box-shadow:0 8px 25px rgba(37,211,102,0.3);
+
+    transition:0.3s ease;
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.12);
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+
+    padding:50px 20px;
+
+    background:#030303;
+
+    border-top:1px solid rgba(255,255,255,0.03);
+}
+
+.social-icons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.social-icons a{
+    width:44px;
+    height:44px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    text-decoration:none;
+
+    color:var(--text-muted);
+
+    background:rgba(255,255,255,0.03);
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    transition:0.3s ease;
+}
+
+.social-icons a:hover{
+    background:var(--primary-red);
+    color:#fff;
+    transform:translateY(-4px);
+}
+
+footer p{
+    color:#666;
+    font-size:.9rem;
+    margin-bottom:5px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeInUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TABLET */
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction:column;
+        gap:14px;
+        padding:15px 5%;
+    }
+
+    .nav-links{
+        gap:20px;
+    }
+
+    header{
+        padding-top:190px;
+        background-attachment:scroll;
+    }
+
+    .services-section{
+        padding-bottom:70px;
+    }
+
+    .datetime-group{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .modal-content{
+        padding:28px 20px;
+    }
+
+}
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+    .nav-links{
+        gap:15px;
+    }
+
+    .nav-links a{
+        font-size:.85rem;
+    }
+
+    header{
+        min-height:85vh;
+        padding:190px 16px 70px;
+    }
+
+    header p{
+        letter-spacing:2px;
+    }
+
+    .container{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:30px 20px;
+        border-radius:20px;
+    }
+
+    .card i{
+        font-size:2.4rem;
+    }
+
+    .card h2{
+        font-size:1.2rem;
+    }
+
+    .modal-content{
+        border-radius:20px;
+    }
+
+    input,
+    select{
+        padding:12px;
+        font-size:.92rem;
+    }
+
+    .btn-submit{
+        padding:13px 18px;
+    }
+
+    .whatsapp-float{
+        width:50px;
+        height:50px;
+        font-size:24px;
+        right:18px;
+        bottom:18px;
+    }
+
+}
+
+/* EXTRA SMALL */
+
+@media(max-width:360px){
+
+    .nav-links{
+        gap:12px;
+    }
+
+    .nav-links a{
+        font-size:.8rem;
+    }
+
+    header h1{
+        font-size:2rem;
+    }
+
+    .card{
+        padding:25px 16px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo-link">
-            <img src="logo.jpeg" alt="K-WIN Icon" class="nav-logo-img">
-        </a>
-        <div class="nav-links">
-            <a href="./">Home</a>
-            <a href="gallery">Gallery</a>
-            <a href="booking" class="active">Booking</a>
-            <a href="about">About</a>
-        </div>
-    </nav>
+<nav>
 
-    <header>
-        <div><img src="logo.jpeg" class="main-logo" alt="K-WIN Logo"></div>
-        <h1>Kind <span>Win</span></h1>
-        <p>The Trademark of Kind Win</p>
-    </header>
+    <a href="index.html" class="nav-logo-link">
+        <img src="logo.jpeg" alt="K-WIN Icon" class="nav-logo-img">
+    </a>
 
-    <section class="services-section">
-        <div class="section-title">
-            <h2>Our <span>Services</span></h2>
-            <h3>Book <span>Now</span></h3>
-        </div>
-
-        <div class="container">
-            <div class="card">
-                <i class="fas fa-share-alt"></i>
-                <h2>Social Media</h2>
-                <p>Promotion & Growth</p>
-                <button class="btn-book" onclick="openBooking('Social Media', 'SM')">Book Now</button>
-            </div>
-            <div class="card">
-                <i class="fas fa-database"></i>
-                <h2>Data Recovery</h2>
-                <p>Recover your important data</p>
-                <button class="btn-book" onclick="openBooking('Data Recovery', 'DR')">Book Now</button>
-            </div>
-            <div class="card">
-                <i class="fas fa-microphone"></i>
-                <h2>Audio Editing</h2>
-                <p>Mixing, Mastering, Wedding tracks</p>
-                <button class="btn-book" onclick="openBooking('Audio Editing', 'AE')">Book Now</button>
-            </div>
-            <div class="card">
-                <i class="fas fa-bullhorn"></i>
-                <h2>All Campaigns</h2>
-                <p>Complete marketing solutions</p>
-                <button class="btn-book" onclick="openBooking('All Campaigns', 'AC')">Book Now</button>
-            </div>
-            <div class="card">
-                <i class="fas fa-briefcase"></i>
-                <h2>Business Promotion</h2>
-                <p>Fast & Premium digital service</p>
-                <button class="btn-book" onclick="openBooking('Business Promotion', 'BP')">Book Now</button>
-            </div>
-        </div>
-    </section>
-
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeBooking()">&times;</span>
-            <h2><span>Book</span> Service</h2>
-            
-            <form id="googleSheetBookingForm">
-                <label>Reference Number</label>
-                <input type="text" id="bookRef" class="readonly-box" readonly>
-
-                <label>Selected Service</label>
-                <input type="text" id="bookService" class="readonly-box" readonly>
-
-                <div class="datetime-group">
-                    <div>
-                        <label>Appointment Date</label>
-                        <input type="date" id="bookDate" required onchange="handleDateChange()">
-                    </div>
-                    <div>
-                        <label>Available Time</label>
-                       <select id="bookTime" required disabled>
-                            <option value="" disabled selected>Select Date First</option>
-                            <option value="08:00">08:00 AM</option>
-                            <option value="09:30">09:30 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="14:30">02:30 PM</option>
-                            <option value="16:00">04:00 PM</option>
-                        </select>
-                    </div>
-                </div>
-
-                <label>Your Name</label>
-                <input type="text" id="bookName" placeholder="Enter your full name" required>
-
-                <label>Your Email Address</label>
-                <input type="email" id="bookEmail" placeholder="Enter your email address" required>
-
-                <button class="btn-submit" type="submit" id="submitBtn">Confirm Booking via WhatsApp</button>
-            </form>
-        </div>
+    <div class="nav-links">
+        <a href="./">Home</a>
+        <a href="gallery">Gallery</a>
+        <a href="booking" class="active">Booking</a>
+        <a href="about">About</a>
     </div>
 
-    <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</nav>
 
-   <footer>
-        <div class="social-icons">
-            <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://youtube.com/@kindwin_18?si=-2pV4FCG4Lh8Q9S1" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+<header>
+
+    <img src="logo.jpeg" class="main-logo" alt="K-WIN Logo">
+
+    <h1>Kind <span>Win</span></h1>
+
+    <p>The Trademark of Kind Win</p>
+
+</header>
+
+<section class="services-section">
+
+    <div class="section-title">
+        <h2>Our <span>Services</span></h2>
+        <h3>Book <span>Now</span></h3>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <i class="fas fa-share-alt"></i>
+            <h2>Social Media</h2>
+            <p>Promotion & Growth</p>
+            <button class="btn-book">Book Now</button>
         </div>
-        <p>© 2026 K-WIN Productions</p>
-        <p>Kurunegala, Sri Lanka</p>
-    </footer>
 
-<script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqwDkrHSq31xHFGCXqb2XIV63H-5_Cw8QioM8Gt_Jeyq55anzbqZ6v75gVgYUd7myJLQ/exec";
+        <div class="card">
+            <i class="fas fa-database"></i>
+            <h2>Data Recovery</h2>
+            <p>Recover your important data</p>
+            <button class="btn-book">Book Now</button>
+        </div>
 
-const bookingModal = document.getElementById("bookingModal");
-const googleSheetBookingForm = document.getElementById("googleSheetBookingForm");
-const bookDateInput = document.getElementById("bookDate");
-const bookTimeSelect = document.getElementById("bookTime");
-const submitBtn = document.getElementById("submitBtn");
+        <div class="card">
+            <i class="fas fa-microphone"></i>
+            <h2>Audio Editing</h2>
+            <p>Mixing, Mastering, Wedding tracks</p>
+            <button class="btn-book">Book Now</button>
+        </div>
 
-function setMinDate() {
-    const today = new Date().toISOString().split('T')[0];
-    bookDateInput.setAttribute('min', today);
-}
+        <div class="card">
+            <i class="fas fa-bullhorn"></i>
+            <h2>All Campaigns</h2>
+            <p>Complete marketing solutions</p>
+            <button class="btn-book">Book Now</button>
+        </div>
 
-function handleDateChange() {
-    if (!bookDateInput.value) return;
+        <div class="card">
+            <i class="fas fa-briefcase"></i>
+            <h2>Business Promotion</h2>
+            <p>Fast & Premium digital service</p>
+            <button class="btn-book">Book Now</button>
+        </div>
 
-    const dateParts = bookDateInput.value.split('-'); 
-    const selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-    const day = selectedDate.getDay(); 
+    </div>
 
-    if (day === 6) { 
-        alert("ආයතනය සෙනසුරාදා දිනවල වසා ඇත. කරුණාකර වෙනත් දිනයක් තෝරන්න.");
-        bookDateInput.value = "";
-        bookTimeSelect.disabled = true;
-        return;
-    }
+</section>
 
-    if (bookDateInput.value) {
-        fetchBookedSlotsFromGoogleSheet(bookDateInput.value);
-    }
-}
+<footer>
 
-function fetchBookedSlotsFromGoogleSheet(dateString) {
-    bookTimeSelect.innerHTML = '<option disabled selected>Loading Slots...</option>';
-    bookTimeSelect.disabled = true;
+    <div class="social-icons">
 
-    const uniqueURL = `${GOOGLE_SCRIPT_URL}?action=checkSlots&date=${dateString}&t=${Date.now()}`;
+        <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+        </a>
 
-    fetch(uniqueURL)
-    .then(response => response.json())
-    .then(bookedSlots => {
-        const allSlots = ["08:00", "09:30", "12:00", "14:30", "16:00"];
-        const displaySlots = {
-            "08:00": "08:00 AM",
-            "09:30": "09:30 AM",
-            "12:00": "12:00 PM",
-            "14:30": "02:30 PM",
-            "16:00": "04:00 PM"
-        };
+        <a href="https://youtube.com/@kindwin_18?si=-2pV4FCG4Lh8Q9S1" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
 
-        let html = '<option value="" disabled selected>Select Time</option>';
+        <a href="#" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
 
-        allSlots.forEach(slot => {
-            const isBooked = bookedSlots.includes(slot);
+    </div>
 
-            if (isBooked) {
-                html += `<option value="${slot}" disabled>${displaySlots[slot]} - Booked</option>`;
-            } else {
-                html += `<option value="${slot}">${displaySlots[slot]}</option>`;
-            }
-        });
+    <p>© 2026 K-WIN Productions</p>
+    <p>Kurunegala, Sri Lanka</p>
 
-        bookTimeSelect.innerHTML = html;
-        bookTimeSelect.disabled = false;
-    })
-    .catch(error => {
-        console.error(error);
-        bookTimeSelect.innerHTML = '<option disabled selected>Error Loading</option>';
-    });
-}
+</footer>
 
-function openBooking(serviceName, servicePrefix) {
-    const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    const referenceNumber = `KWIN-${servicePrefix}-${randomNumber}`;
-
-    document.getElementById("bookRef").value = referenceNumber;
-    document.getElementById("bookService").value = serviceName;
-
-    setMinDate();
-    bookTimeSelect.innerHTML = '<option disabled selected>Select Date First</option>';
-    bookTimeSelect.disabled = true;
-    bookingModal.style.display = "flex";
-}
-
-function closeBooking() {
-    bookingModal.style.display = "none";
-    googleSheetBookingForm.reset();
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Confirm Booking via WhatsApp";
-}
-
-window.onclick = function(event) {
-    if (event.target == bookingModal) {
-        closeBooking();
-    }
-}
-
-googleSheetBookingForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Saving Appointment...";
-
-    const ref = document.getElementById("bookRef").value;
-    const service = document.getElementById("bookService").value;
-    const date = document.getElementById("bookDate").value;
-    const time = document.getElementById("bookTime").value;
-    const name = document.getElementById("bookName").value;
-    const email = document.getElementById("bookEmail").value;
-
-    const formData = new URLSearchParams();
-    formData.append("ref", ref);
-    formData.append("service", service);
-    formData.append("date", date);
-    formData.append("time", time);
-    formData.append("name", name);
-    formData.append("email", email);
-
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.result === "success") {
-            const whatsappNumber = "94707140731";
-            const message = `🔴 NEW BOOKING 🔴\n\n🆔 Reference: ${ref}\n\n💼 Service: ${service}\n\n📅 Date: ${date}\n\n🕒 Time: ${time}\n\n👤 Name: ${name}\n\n✉️ Email: ${email}`;
-
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, "_blank");
-            closeBooking();
-        } else if (data.result === "taken") {
-            alert("කණගාටුයි! මෙම වෙලාව වෙනත් අයෙකු විසින් වෙන් කරගෙන ඇත. කරුණාකර වෙනත් වෙලාවක් තෝරන්න.");
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Confirm Booking via WhatsApp";
-            fetchBookedSlotsFromGoogleSheet(date); 
-        } else {
-            alert("Booking Failed: " + data.message);
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Confirm Booking via WhatsApp";
-        }
-    })
-    .catch(error => {
-        console.error(error);
-        alert("Network Error!");
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Confirm Booking via WhatsApp";
-    });
-});
-</script>
 </body>
 </html>
