@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-WIN </title>
     
-    <!-- Dynamic SVG Web Icon (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -196,6 +193,36 @@
             box-shadow: 0 6px 20px rgba(255, 26, 26, 0.5);
         }
 
+        /* ABOUT SECTION */
+        .about-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px 25px;
+            background: var(--dark-card);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .about-section h2 span {
+            color: var(--primary-red);
+        }
+
+        .about-section p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
         /* ================= MODAL ================= */
         .modal {
             display: none;
@@ -341,7 +368,6 @@
 </head>
 <body>
 
-    <!-- NAVIGATION BAR -->
     <nav>
         <a href="index.html" class="nav-logo-link">
             <img src="logo.jpeg" alt="K-WIN Icon" class="nav-logo-img">
@@ -349,79 +375,29 @@
         <div class="nav-links">
             <a href="./">Home</a>
             <a href="gallery">Gallery</a>
-            <a href="booking" class="active">Booking</a>
-            <a href="about">About</a>
+            <a href="booking">Booking</a>
+            <a href="about" class="active">About</a>
         </div>
     </nav>
 
-    <!-- HERO HEADER SECTION -->
     <header>
         <div>
             <img src="logo.jpeg" class="main-logo" alt="K-WIN Logo">
         </div>
-        <h1><span>Kind</span> Win</h1>
-        <p>Book Any Digital Service Easily</p>
+        <h1> Kind Win</h1>
+        <p>The Trademarks of Kind WIn </p>
     </header>
 
-    <!-- SERVICES CONTAINER -->
-    <main class="container">
+    <section class="about-section">
+        <h2>About <span>Us</span></h2>
+        <p>Your success is at the center of everything we do. We are committed to providing smart, reliable, and high-quality digital solutions designed to help businesses grow and stand out in a competitive world. By combining creativity, strategy, and modern technology, we create services that not only solve problems but also create new opportunities for growth.</p>
+        <p>At Kind Win, our philosophy is built around one simple value: Kindness. We believe success is not only about reaching goals; it is also about the way we help people reach them. Our mission is to guide you toward your achievements with dedication, respect, and a kind approach in every step of the journey. We value trust, long-term relationships, and delivering results that create real impact.</p>
+    </section>
 
-        <div class="card">
-            <h3>Social Media</h3>
-            <button onclick="openModal('Social Media')">Book Now</button>
-        </div>
-
-        <div class="card">
-            <h3>Data Recovery</h3>
-            <button onclick="openModal('Data Recovery')">Book Now</button>
-        </div>
-
-        <div class="card">
-            <h3>Audio Editing</h3>
-            <button onclick="openModal('Audio Editing')">Book Now</button>
-        </div>
-
-        <div class="card">
-            <h3>All Campaigns</h3>
-            <button onclick="openModal('All Campaigns')">Book Now</button>
-        </div>
-
-        <div class="card">
-            <h3>Business Promotion</h3>
-            <button onclick="openModal('Business Promotion')">Book Now</button>
-        </div>
-
-    </main>
-
-    <!-- MODAL POPUP -->
-    <div class="modal" id="modal">
-        <div class="modal-box">
-            <h3 id="title">Book Service</h3>
-
-            <input id="name" placeholder="Name">
-            <input id="email" placeholder="Email">
-            <input type="date" id="date" onchange="loadSlots()">
-
-            <select id="time" disabled>
-                <option>Select Date First</option>
-            </select>
-
-            <!-- NEW FIELD: REGARDING WHAT / DETAILS -->
-            <input id="details" placeholder="Regarding What? (eg: Song Editing, Page Promo)">
-
-            <div class="modal-buttons">
-                <button onclick="bookNow()">Confirm Booking</button>
-                <button onclick="closeModal()" style="background:#444; box-shadow: none;">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- FLOATING WHATSAPP BUTTON -->
     <a class="whatsapp-float" href="https://wa.me/94707140731" target="_blank" aria-label="Contact on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- FOOTER -->
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/share/18idSjuDgj/" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -431,106 +407,6 @@
         <p>© 2026 K-WIN Productions</p>
         <p>Kurunegala, Sri Lanka</p>
     </footer>
-
-<script>
-// 🔥 GOOGLE SCRIPT URL
-const URL = "https://script.google.com/macros/s/AKfycbzc5JueQoCCw6i6DmRqLV5V8sFtP2q1FlFYVWgAkiyyY2dE_3u7tdta5g-RB6RUwD5tjQ/exec";
-
-let selectedService = "";
-
-// OPEN MODAL
-function openModal(service){
-    selectedService = service;
-    document.getElementById("title").innerText = "Book: " + service;
-    document.getElementById("modal").style.display = "flex";
-}
-
-// CLOSE MODAL
-function closeModal(){
-    document.getElementById("modal").style.display = "none";
-    document.getElementById("details").value = ""; // Reset details field
-}
-
-// LOAD SLOTS
-async function loadSlots(){
-    const date = document.getElementById("date").value;
-    const timeSelect = document.getElementById("time");
-
-    timeSelect.disabled = true;
-    timeSelect.innerHTML = "Loading...";
-
-    const res = await fetch(URL + "?action=slots&date=" + date);
-    const data = await res.json();
-
-    const slots = ["08:00","09:30","12:00","14:30","16:00"];
-
-    let html = "";
-
-    slots.forEach(s=>{
-        html += data.booked.includes(s)
-        ? `<option disabled>${s} - Booked</option>`
-        : `<option value="${s}">${s}</option>`;
-    });
-
-    timeSelect.innerHTML = html;
-    timeSelect.disabled = false;
-}
-
-// BOOK NOW
-async function bookNow(){
-    const nameVal = document.getElementById("name").value;
-    const emailVal = document.getElementById("email").value;
-    const dateVal = document.getElementById("date").value;
-    const timeVal = document.getElementById("time").value;
-    const detailsVal = document.getElementById("details").value || "Not Specified";
-
-    const payload = {
-        service: selectedService,
-        name: nameVal,
-        email: emailVal,
-        date: dateVal,
-        time: timeVal,
-        details: detailsVal
-    };
-
-    const res = await fetch(URL,{
-        method:"POST",
-        body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-
-    if(data.result === "success"){
-        // 📌 Generating a Premium Unique Reference Number (e.g., KW-B84A2)
-        const refNum = "KW-" + Math.random().toString(36).substring(2, 7).toUpperCase();
-
-        // 🌟 Styled WhatsApp Message with the New "Regarding / Details" section
-        const msg = 
-`🔥 *NEW BOOKING CONFIRMED* 🔥
-
-📌 *Ref No:* ${refNum}
-🛠️ *Service:* ${payload.service}
-📝 *Regarding:* ${payload.details}
-👤 *Client Name:* ${payload.name}
-📅 *Date:* ${payload.date}
-⏰ *Time Slot:* ${payload.time}
-
-----------------------------------
-Thank you for choosing K-WIN Productions!`;
-
-        window.open("https://wa.me/94707140731?text=" + encodeURIComponent(msg));
-
-        alert("Booking Successful ✔️\nYour Reference Number: " + refNum + "\nRegarding: " + payload.details);
-        closeModal();
-
-    } else if(data.result === "taken"){
-        alert("Slot already booked!");
-        loadSlots();
-    } else {
-        alert("Error!");
-    }
-}
-</script>
 
 </body>
 </html>
