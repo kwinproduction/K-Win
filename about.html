@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>K-WIN</title>
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0a'/><text x='50%' y='65%' font-size='55' font-family='Montserrat, sans-serif' font-weight='800' text-anchor='middle' fill='%23ffffff'>K<tspan fill='%23ff1a1a'>W</tspan></text></svg>">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+    <rect width='100' height='100' rx='20' fill='%230a0a0a'/>
+    <text x='50%' y='65%' font-size='55' font-family='Montserrat,sans-serif'
+    font-weight='800' text-anchor='middle' fill='%23ffffff'>
+    K<tspan fill='%23ff1a1a'>W</tspan>
+    </text>
+    </svg>">
 
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
     <style>
 
@@ -31,6 +43,7 @@
 
         html{
             scroll-behavior:smooth;
+            overflow-x:hidden;
         }
 
         body{
@@ -38,14 +51,21 @@
             background:var(--dark-bg);
             color:var(--text-main);
             overflow-x:hidden;
-            line-height:1.8;
+            line-height:1.7;
             position:relative;
+            width:100%;
         }
 
         img{
             max-width:100%;
             display:block;
         }
+
+        a{
+            -webkit-tap-highlight-color:transparent;
+        }
+
+        /* Glow Background */
 
         body::before,
         body::after{
@@ -68,6 +88,8 @@
             bottom:10%;
             right:-120px;
         }
+
+        /* Scrollbar */
 
         ::-webkit-scrollbar{
             width:8px;
@@ -96,10 +118,10 @@
             align-items:center;
             gap:20px;
 
-            padding:18px 6%;
+            padding:16px 5%;
 
             background:rgba(6,6,6,0.75);
-            backdrop-filter:blur(20px);
+            backdrop-filter:blur(18px);
 
             border-bottom:1px solid rgba(255,255,255,0.05);
         }
@@ -115,9 +137,9 @@
             width:46px;
             height:46px;
             object-fit:cover;
-            border-radius:10px;
-            transition:0.3s ease;
+            border-radius:12px;
             border:1px solid rgba(255,255,255,0.1);
+            transition:0.3s ease;
         }
 
         .nav-logo-img:hover{
@@ -127,9 +149,9 @@
         .nav-links{
             display:flex;
             align-items:center;
+            justify-content:center;
             gap:28px;
             flex-wrap:wrap;
-            justify-content:center;
         }
 
         .nav-links a{
@@ -172,7 +194,7 @@
             justify-content:center;
             text-align:center;
 
-            padding:160px 20px 80px;
+            padding:140px 20px 80px;
 
             background:
             linear-gradient(rgba(6,6,6,0.65),rgba(6,6,6,0.95)),
@@ -180,6 +202,7 @@
 
             background-size:cover;
             background-position:center;
+            background-repeat:no-repeat;
             background-attachment:fixed;
         }
 
@@ -187,23 +210,23 @@
             width:100%;
             max-width:900px;
             margin:auto;
+            animation:fadeInUp .9s ease;
         }
 
         .main-logo{
-            width:130px;
+            width:clamp(90px,18vw,140px);
             margin:0 auto 25px;
-            border-radius:18px;
-
-            box-shadow:0 15px 35px rgba(255,26,26,0.25);
+            border-radius:20px;
 
             border:1px solid rgba(255,255,255,0.15);
 
-            animation:fadeInUp .8s ease;
+            box-shadow:
+            0 15px 35px rgba(255,26,26,0.25);
         }
 
         header h1{
             font-family:'Montserrat',sans-serif;
-            font-size:clamp(2.4rem,7vw,5rem);
+            font-size:clamp(2.3rem,9vw,5.5rem);
             font-weight:900;
             line-height:1.1;
             margin-bottom:12px;
@@ -211,14 +234,14 @@
         }
 
         header h1 span{
-            background:linear-gradient(135deg,#fff 20%,var(--primary-red) 100%);
+            background:linear-gradient(135deg,#ffffff 20%,var(--primary-red) 100%);
             -webkit-background-clip:text;
             -webkit-text-fill-color:transparent;
         }
 
         header p{
             color:var(--primary-red);
-            font-size:clamp(.75rem,2vw,1rem);
+            font-size:clamp(.7rem,2vw,1rem);
             letter-spacing:4px;
             text-transform:uppercase;
             font-weight:600;
@@ -231,7 +254,7 @@
             max-width:1200px;
             margin:auto;
             padding:0 20px 80px;
-            margin-top:-80px;
+            margin-top:-70px;
             position:relative;
             z-index:10;
         }
@@ -240,9 +263,9 @@
             background:var(--dark-card);
             backdrop-filter:blur(16px);
 
-            padding:clamp(25px,5vw,60px);
+            padding:clamp(24px,5vw,60px);
 
-            border-radius:24px;
+            border-radius:26px;
 
             border:1px solid rgba(255,255,255,0.05);
 
@@ -271,7 +294,7 @@
         .about-content{
             display:grid;
             grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:25px;
+            gap:24px;
         }
 
         .about-text-block{
@@ -279,7 +302,7 @@
 
             padding:28px;
 
-            border-radius:18px;
+            border-radius:20px;
 
             border:1px solid rgba(255,255,255,0.03);
 
@@ -287,7 +310,7 @@
         }
 
         .about-text-block:hover{
-            transform:translateY(-5px);
+            transform:translateY(-6px);
             background:rgba(255,255,255,0.04);
         }
 
@@ -302,8 +325,8 @@
 
         .whatsapp-float{
             position:fixed;
-            right:20px;
-            bottom:20px;
+            right:18px;
+            bottom:18px;
 
             width:58px;
             height:58px;
@@ -353,8 +376,8 @@
         }
 
         .social-icons a{
-            width:44px;
-            height:44px;
+            width:46px;
+            height:46px;
 
             display:flex;
             justify-content:center;
@@ -381,10 +404,10 @@
 
         footer p{
             color:#666;
-            font-size:.9rem;
+            font-size:.92rem;
         }
 
-        /* ANIMATION */
+        /* Animation */
 
         @keyframes fadeInUp{
             from{
@@ -403,15 +426,20 @@
         @media(max-width:768px){
 
             nav{
-                padding:15px 5%;
+                padding:14px 5%;
+            }
+
+            .nav-links{
+                gap:20px;
             }
 
             header{
                 background-attachment:scroll;
+                padding-top:170px;
             }
 
             .about-container{
-                margin-top:-40px;
+                margin-top:-45px;
             }
 
             .about-card p{
@@ -426,35 +454,71 @@
 
             nav{
                 flex-direction:column;
+                gap:14px;
                 padding:14px 12px;
             }
 
             .nav-links{
                 width:100%;
-                gap:18px;
+                justify-content:center;
+                gap:16px;
+            }
+
+            .nav-links a{
+                font-size:0.9rem;
             }
 
             header{
-                padding-top:190px;
                 min-height:85vh;
+                padding:190px 16px 70px;
             }
 
-            .main-logo{
-                width:100px;
+            header p{
+                letter-spacing:2px;
             }
 
             .about-card{
-                border-radius:18px;
+                border-radius:20px;
             }
 
             .about-text-block{
-                padding:20px;
+                padding:22px;
+            }
+
+            .about-card p{
+                font-size:.95rem;
             }
 
             .whatsapp-float{
-                width:50px;
-                height:50px;
+                width:52px;
+                height:52px;
                 font-size:24px;
+            }
+
+            footer{
+                padding:40px 15px;
+            }
+
+        }
+
+        /* EXTRA SMALL */
+
+        @media(max-width:360px){
+
+            .nav-links{
+                gap:12px;
+            }
+
+            .nav-links a{
+                font-size:.82rem;
+            }
+
+            header h1{
+                font-size:2rem;
+            }
+
+            .about-content{
+                grid-template-columns:1fr;
             }
 
         }
@@ -463,6 +527,8 @@
 </head>
 
 <body>
+
+    <!-- NAVBAR -->
 
     <nav>
 
@@ -479,11 +545,15 @@
 
     </nav>
 
+    <!-- HERO -->
+
     <header>
 
         <div class="hero-content">
 
-            <img src="logo.jpeg" class="main-logo" alt="K-WIN Logo">
+            <img src="logo.jpeg"
+            class="main-logo"
+            alt="K-WIN Logo">
 
             <h1>Kind <span>Win</span></h1>
 
@@ -492,6 +562,8 @@
         </div>
 
     </header>
+
+    <!-- ABOUT -->
 
     <main class="about-container">
 
@@ -525,6 +597,8 @@
 
     </main>
 
+    <!-- WHATSAPP -->
+
     <a class="whatsapp-float"
        href="https://wa.me/94707140731"
        target="_blank">
@@ -532,6 +606,8 @@
         <i class="fab fa-whatsapp"></i>
 
     </a>
+
+    <!-- FOOTER -->
 
     <footer>
 
